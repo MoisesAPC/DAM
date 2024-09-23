@@ -6,9 +6,9 @@ public class Students {
 		return "Students [numlist=" + numlist + ", name=" + name + ", marks=" + marks + "]";
 	}
 
-	private int numlist;
-	private String name;
-	private double marks;
+	private int numlist;	// Número de la lista
+	private String name;	// Nombre y apellidos
+	private double marks;	// Notas
 	
 	// Lista con todos los estudiantes añadidos
 	static ArrayList<Students> list = new ArrayList<>();
