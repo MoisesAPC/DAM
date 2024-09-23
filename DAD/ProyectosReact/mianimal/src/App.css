@@ -1,0 +1,11 @@
+.foto_animal {
+  border-radius: 50%;
+  width: 450px;
+  height: 450px;
+}
+
+.divprint{
+  float: inherit;
+  margin-right: auto;
+  margin-left: 45%;
+}
