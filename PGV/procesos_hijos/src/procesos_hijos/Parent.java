@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 public class Parent {
     public static void main(String[] args) {
         try {
-            Process p = new ProcessBuilder("java", "-jar", "./Child.jar").start();
+            Process p = new ProcessBuilder("java", "-jar", "./procesos_hijos.jar").start();
             OutputStreamWriter osr = new OutputStreamWriter(p.getOutputStream());
             String st = "Hola, soy el padre";
             osr.write(st);

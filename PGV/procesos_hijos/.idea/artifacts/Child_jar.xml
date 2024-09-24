@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="procesos_hijos:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/procesos_hijos_jar</output-path>
+  <artifact type="jar" name="Child:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Child_jar</output-path>
     <root id="archive" name="procesos_hijos.jar">
       <element id="module-output" name="procesos_hijos" />
     </root>
