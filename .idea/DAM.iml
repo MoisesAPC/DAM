@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/PGV/procesos_prueba/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/PGV/process_runtime/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/PGV/procesos_hijos/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/AED/RandomAccessFile_prueba1/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
