@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="actividad1_programacion_multiproceso:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/actividad1_programacion_multiproceso_jar</output-path>
+    <root id="archive" name="actividad1_programacion_multiproceso.jar">
+      <element id="module-output" name="actividad1_programacion_multiproceso" />
+    </root>
+  </artifact>
+</component>
