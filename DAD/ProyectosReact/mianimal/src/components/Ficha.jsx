@@ -1,4 +1,3 @@
-import './App.css';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import { Avatar } from '@mui/material';
@@ -6,13 +5,14 @@ import { Typography } from '@mui/material';
 import { Stack } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
+import { useState } from 'react';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 function Ficha() {
-    const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0)
   
   const datos = {
     alt: 'Un gato',

@@ -16,6 +16,7 @@ function FormRegistro() {
   const handleSubmit = (e) => {
     //Para que no mande el formulario, sino que haga lo que yo le diga
     e.preventDefault();
+    console.log(data)
   
   }
 
@@ -29,19 +30,23 @@ function FormRegistro() {
 
 
   const handleChangeBreed = (e) =>{
-    *rellenarlo
+    setData({
+      ...data,
+      breed: e.target.value
+    })
+    //console.log(data)
   }
 
   return(
     <Container>
-      <Paper elevation={*rellenarlo} square={*true o false?} sx={{textAlign:'center'}} >
+      <Paper elevation={3} square={false} sx={{textAlign:'center'}} >
         <Typography variant='h6' color='elige el color' sx={{mt:2, mb:2}}>Registra tu mascota</Typography>
         <Box
           component='form'
           onSubmit={handleSubmit}
         >
           <Grid container spacing={0}>
-            <Grid size={*rellenarlo y hacerlo responsive}>
+            <Grid item xs={12} sm={6} md={4} lg={3}>
               <TextField 
                 required
                 label='Nombre Mascota'
@@ -52,29 +57,26 @@ function FormRegistro() {
                 
               />
             </Grid>
-            <Grid size={*rellenarlo y hacerlo responsive}>
+            <Grid item xs={12} sm={6} md={4} lg={3}>
               <TextField 
                   label='Raza'
                   variant='outlined'
                   fullWidth
-                  value=*rellenarlo
-                  onChange=*rellenarlo
+                  value={data.breed}
+                  onChange={handleChangeBreed}
                   
               />
             </Grid> 
             <Grid size={12}>
-              <Button type=*rellenarlo variant='outlined' fullWidth>Registrar</Button>
-            </Grid>    
+              <Button type='submit' variant='outlined' fullWidth>Registrar</Button>
+            </Grid>
           </Grid>
         </Box>
       </Paper>
-      </Container>
+    </Container>
     
   )
 
 }
-  
-   
-  
 
 export default FormRegistro
