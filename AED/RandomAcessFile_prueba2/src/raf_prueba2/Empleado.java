@@ -127,6 +127,7 @@ public class Empleado implements Serializable {
         fichero.writeDouble(empleado.getSalario());
     }
 
+    /* Está medio mal, porque tiene que acceder al registro DIRECTAMENTE. Esto lo que hace es una búsqueda secuencial */
     public static Empleado buscarEmpleado(int numEmpleado, RandomAccessFile fichero) {
         try {
             fichero.seek(0);
