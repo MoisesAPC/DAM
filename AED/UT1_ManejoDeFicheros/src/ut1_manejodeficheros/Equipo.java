@@ -82,7 +82,7 @@ public class Equipo {
 
     // Dada una línea cargada de fichero, parsea sus parámetros
     public void parsearLinea(String linea, String separador) {
-        String[] partes = linea.split("separador");
+        String[] partes = linea.split(separador);
 
         try {
             if (partes.length > 0) {

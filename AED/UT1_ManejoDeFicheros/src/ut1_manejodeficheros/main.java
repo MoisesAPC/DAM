@@ -7,7 +7,7 @@ public class main {
     public static void main(String[] args) {
         ArrayList<Equipo> listaEquipos = new ArrayList<Equipo>();
         final String ficheroSecuencialEntrada = "ficheros/datosEquipos.txt";
-        final String ficheroRAFSalida = "ficheros/datosEquipos.txt";
+        final String ficheroRAFSalida = "ficheros/datosEquipos.dat";
 
         FicheroUtils.leerFicheroSecuencialYVolcarEnRAF(ficheroSecuencialEntrada, ficheroRAFSalida, listaEquipos);
     }
