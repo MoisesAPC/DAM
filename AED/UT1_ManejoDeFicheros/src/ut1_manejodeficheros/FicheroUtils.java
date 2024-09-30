@@ -49,4 +49,12 @@ public class FicheroUtils {
         sb.setLength(longitud);
         raf.writeChars(sb.toString());
     }
+
+    /**
+     * Dado el número del club a buscar, se busca en el fichero de acceso aleatorio,
+     * y se cambia el teléfono.
+     */
+    public static void actualizarTelefonoDelClub(RandomAccessFile raf, int numClub, int telefono) {
+
+    }
 }
