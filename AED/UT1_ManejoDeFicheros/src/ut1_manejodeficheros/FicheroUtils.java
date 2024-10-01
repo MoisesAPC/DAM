@@ -1,9 +1,6 @@
 package ut1_manejodeficheros;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.util.ArrayList;
 
 public class FicheroUtils {
@@ -54,7 +51,7 @@ public class FicheroUtils {
      * Dado el número del club a buscar, se busca en el fichero de acceso aleatorio,
      * y se cambia el teléfono.
      */
-    public static void actualizarTelefonoDelClub(RandomAccessFile raf, int numClub, int telefono) {
+    public static void actualizarTelefonoDelClub(String ficheroRAF, int numClub, int telefono) {
 
     }
 }
