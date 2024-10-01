@@ -9,9 +9,9 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        ArrayList<Equipo> listaEquipos = new ArrayList<Equipo>();
         final String ficheroSecuencial = "ficheros/datosEquipos.txt";
         final String ficheroRAF = "ficheros/datosEquipos.dat";
+        final String ficheroObj = "ficheros/datosEquipos.obj";
 
         /**
          * La misma u otra clase leerá este fichero secuencial y según va leyendo los
@@ -19,7 +19,7 @@ public class main {
          * de los campos, la estableces inicialmente al tamaño y tipología que tú consideres
          * (indícalo en el cód fuente) y se denominará datosEquipos.dat.
          */
-        FicheroUtils.leerFicheroSecuencialYVolcarEnRAF(ficheroSecuencial, ficheroRAF, listaEquipos);
+        FicheroUtils.leerFicheroSecuencialYVolcarEnRAF(ficheroSecuencial, ficheroRAF);
 
         /**
          * Otra clase/método permitirá la actualización del teléfono del club, de forma que se
@@ -38,8 +38,22 @@ public class main {
             /* Ahora lee el nombre del presidente del tercer equipo, localízalo y muestra su teléfono. */
             Equipo tercerEquipo = FicheroUtils.buscarEquipoPorIndice(ficheroRAF, 3 - 1);
             System.out.println("Teléfono del tercer equipo: " + tercerEquipo.getTelefono());
+
+            /**
+             * Crea una clase de Objetos Equipos. Leerás los datos del último fichero de acceso
+             * aleatorio, creas los objetos y los guardas en un fichero de Objetos datosEquipos.obj.
+             * Finamente para comprobar, lee el ficheros de objetos y muéstralo.
+             */
+            ObjetosEquipos.guardarEquiposEnFicheroObj(ficheroRAF, ficheroObj);
+            ArrayList<Equipo> listaEquiposDesdeFicheroOBJ = ObjetosEquipos.leerEquipoDeFichero(ficheroObj);
+            for (Equipo equipo : listaEquiposDesdeFicheroOBJ) {
+                System.out.println(equipo.toString());
+            }
         }
         catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

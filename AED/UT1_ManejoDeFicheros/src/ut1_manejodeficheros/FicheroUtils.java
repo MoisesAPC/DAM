@@ -10,9 +10,10 @@ public class FicheroUtils {
      *
      * También se guarda cada equipo parseado en la lista
      */
-    public static void leerFicheroSecuencialYVolcarEnRAF(String ficheroSecuencialEntrada, String ficheroRAFSalida, ArrayList<Equipo> listaEquipos) {
+    public static void leerFicheroSecuencialYVolcarEnRAF(String ficheroSecuencialEntrada, String ficheroRAFSalida) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(ficheroSecuencialEntrada));
+            RandomAccessFile raf = new RandomAccessFile(ficheroRAFSalida, "rw");
             String linea;
 
             while ((linea = br.readLine()) != null) {
@@ -21,11 +22,7 @@ public class FicheroUtils {
                 nuevoEquipo.parsearLinea(linea, "##");
 
                 // Vuelca los contenidos en un RAF
-                RandomAccessFile raf = new RandomAccessFile(ficheroRAFSalida, "rw");
                 escribirEquipoEnFichero(raf, nuevoEquipo);
-
-                // Guarda cada equipo parseado en la lista
-                listaEquipos.add(nuevoEquipo);
             }
         }
         catch (IOException e) {
@@ -33,7 +30,7 @@ public class FicheroUtils {
         }
     }
 
-    private static void escribirEquipoEnFichero(RandomAccessFile raf, Equipo equipo) throws IOException {
+    public static void escribirEquipoEnFichero(RandomAccessFile raf, Equipo equipo) throws IOException {
         raf.writeInt(equipo.getNum());
         escribirStringEnFichero(raf, equipo.getNombre(), Equipo.tamanoStrings);
         escribirStringEnFichero(raf, equipo.getPresidente(), Equipo.tamanoStrings);
@@ -47,7 +44,7 @@ public class FicheroUtils {
         raf.writeChars(sb.toString());
     }
 
-    private static Equipo leerEquipoDeFichero(RandomAccessFile raf) throws IOException {
+    public static Equipo leerEquipoDeFichero(RandomAccessFile raf) throws IOException {
         int numClub = raf.readInt();
         String nombre = leerStringDeFichero(raf, Equipo.tamanoStrings);
         String presidente = leerStringDeFichero(raf, Equipo.tamanoStrings);

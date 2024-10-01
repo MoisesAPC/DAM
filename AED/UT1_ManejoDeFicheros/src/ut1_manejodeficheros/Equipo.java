@@ -2,12 +2,13 @@ package ut1_manejodeficheros;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Equipo {
+public class Equipo implements Serializable {
     private int num;            // Número del club
     private String nombre;      // Nombre del club
     private String presidente;  // Nombre del presidente del club
-    private int telefono;      // Número de teléfono
+    private int telefono;       // Número de teléfono
     private String localidad;   // Localidad en la que se encuentra el club
 
     public static final int tamanoStrings = 100;  // Tamaño en bytes de todas las strings contenidas en la clase
