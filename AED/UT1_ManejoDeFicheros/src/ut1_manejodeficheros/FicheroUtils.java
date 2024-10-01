@@ -34,12 +34,16 @@ public class FicheroUtils {
         raf.writeInt(equipo.getNum());
         escribirStringEnFichero(raf, equipo.getNombre(), Equipo.tamanoStrings);
         escribirStringEnFichero(raf, equipo.getPresidente(), Equipo.tamanoStrings);
-        raf.writeLong(equipo.getTelefono());
+        raf.writeInt(equipo.getTelefono());
         escribirStringEnFichero(raf, equipo.getLocalidad(), Equipo.tamanoStrings);
     }
 
     private static void escribirStringEnFichero(RandomAccessFile raf, String string, int longitud) throws IOException {
+        // Como cada caracter ocupa 2 bytes, realizamos la división para que
+        // la String se guarde con el tamaño correcto
+        longitud /= Character.BYTES;
         StringBuilder sb = new StringBuilder(string);
+
         sb.setLength(longitud);
         raf.writeChars(sb.toString());
     }
@@ -55,6 +59,9 @@ public class FicheroUtils {
     }
 
     private static String leerStringDeFichero(RandomAccessFile raf, int longitud) throws IOException {
+        // Como cada caracter ocupa 2 bytes, realizamos la división para que
+        // la String se guarde con el tamaño correcto
+        longitud /= Character.BYTES;
         StringBuffer sb = new StringBuffer(longitud);
 
         for (int i = 0; i < longitud; i++) {
@@ -74,13 +81,24 @@ public class FicheroUtils {
         long totalBytesRAF = raf.length();
         long posicionRegistroActual = 0;
 
+        // Nos aseguramos de empezar la búsqueda desde el principio del ficherp
+        raf.seek(0);
+
         while (raf.getFilePointer() < totalBytesRAF) {
             posicionRegistroActual = raf.getFilePointer();
             raf.seek(posicionRegistroActual);
             // Solamente cargamos el numero del club y lo comprobamos con el que queremos cargar
             int numClubActual = raf.readInt();
             if (numClubActual == numClub) {
-                // Si coinciden, entonces ahora sí cargamos el registro entero para su modificación
+                /**
+                 * Si coinciden, entonces ahora sí cargamos el registro entero para su modificación
+                 *
+                 * @note Como ya hemos hecho un `raf.readInt();` arriba,
+                 *       el puntero está desplazado +4 (el tamaño de un Integer),
+                 *
+                 *       Volvemos a poner el puntero al principio del registro en el fichero para su correcta lectura
+                 */
+                raf.seek(posicionRegistroActual);
                 Equipo equipo = leerEquipoDeFichero(raf);
                 equipo.setTelefono(telefono);
                 escribirEquipoEnFichero(raf, equipo);

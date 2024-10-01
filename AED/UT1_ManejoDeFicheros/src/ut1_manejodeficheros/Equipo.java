@@ -11,7 +11,7 @@ public class Equipo implements Serializable {
     private int telefono;       // Número de teléfono
     private String localidad;   // Localidad en la que se encuentra el club
 
-    public static final int tamanoStrings = 100;  // Tamaño en bytes de todas las strings contenidas en la clase
+    public static final int tamanoStrings = 100;  // Tamaño en bytes de todas las strings contenidas en la clase (50 caracteres)
     public static final int tamanoBytes = Integer.BYTES + tamanoStrings + tamanoStrings + Integer.BYTES + tamanoStrings;  // Tamaño de la clase en bytes
 
     public Equipo(int num, String nombre, String presidente, int telefono, String localidad) {
