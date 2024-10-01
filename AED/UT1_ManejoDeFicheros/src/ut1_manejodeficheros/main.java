@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /* Abrir el directorio `UT1_ManejoDeFicheros` en el IDE para que funcionen las rutas relativas */
+/* Usa el JDK 22 mínimo */
 public class main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
