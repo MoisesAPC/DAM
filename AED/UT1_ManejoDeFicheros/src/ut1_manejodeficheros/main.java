@@ -1,10 +1,11 @@
 package ut1_manejodeficheros;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /* Abrir el directorio `UT1_ManejoDeFicheros` en el IDE para que funcionen las rutas relativas */
-/* Usa el JDK 22 mínimo */
+/* Usa el JDK 23 mínimo */
 public class main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
@@ -26,13 +27,20 @@ public class main {
          * directamente ese registro, y se modifica el teléfono. Debes mostrar la información
          * SOLO de ese registro después de la modificación. Y debes minimizar las
          * lecturas/escrituras a las estrictamente necesarias.
-         *
-         * Ahora lee el nombre del presidente del tercer equipo, localízalo y muestra su teléfono.
          */
-        System.out.println("Introduce el número del club: ");
-        int numClub = teclado.nextInt();
-        System.out.println("Introduce el teléfono del club: ");
-        int telefono = teclado.nextInt();
-        FicheroUtils.actualizarTelefonoDelClub(ficheroRAF, numClub, telefono);
+        try {
+            System.out.print("Introduce el número del club: ");
+            int numClub = teclado.nextInt();
+            System.out.print("Introduce el teléfono del club: ");
+            int telefono = teclado.nextInt();
+            FicheroUtils.actualizarTelefonoDelClub(ficheroRAF, numClub, telefono);
+
+            /* Ahora lee el nombre del presidente del tercer equipo, localízalo y muestra su teléfono. */
+            Equipo tercerEquipo = FicheroUtils.buscarEquipoPorIndice(ficheroRAF, 3 - 1);
+            System.out.println("Teléfono del tercer equipo: " + tercerEquipo.getTelefono());
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
