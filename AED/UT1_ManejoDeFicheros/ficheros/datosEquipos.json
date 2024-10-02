@@ -1,0 +1,23 @@
+[
+  {
+    "num": 100,
+    "nombre": "Playa del Hombre",
+    "presidente": "Messi",
+    "telefono": 555666777,
+    "localidad": "Telde"
+  },
+  {
+    "num": 101,
+    "nombre": "Estrella Roja",
+    "presidente": "Pepito Rojo",
+    "telefono": 666888777,
+    "localidad": "Santa Brígida"
+  },
+  {
+    "num": 202,
+    "nombre": "Siete Palmas",
+    "presidente": "Manuel Feo",
+    "telefono": 9,
+    "localidad": "Las Palmas de GC"
+  }
+]
