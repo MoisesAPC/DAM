@@ -13,6 +13,7 @@ public class main {
         final String ficheroRAF = "ficheros/datosEquipos.dat";
         final String ficheroObj = "ficheros/datosEquipos.obj";
         final String ficheroAsc = "ficheros/datosEquipos.asc";
+        final String ficheroJSON = "ficheros/datosEquipos.json";
 
         /**
          * La misma u otra clase leerá este fichero secuencial y según va leyendo los
@@ -47,9 +48,12 @@ public class main {
              */
             ObjetosEquipos.guardarEquiposEnFicheroObj(ficheroRAF, ficheroObj);
             ArrayList<Equipo> listaEquiposDesdeFicheroOBJ = ObjetosEquipos.leerEquipoDeFichero(ficheroObj);
+
+            System.out.println("--- Fichero OBJ ---");
             for (Equipo equipo : listaEquiposDesdeFicheroOBJ) {
                 System.out.println(equipo.toString());
             }
+            System.out.println("--- --------- ---");
 
             /**
              * Lee los objetos y GUARDA los datos como datos primitivos de Java en un fichero
@@ -58,9 +62,32 @@ public class main {
              */
 
             // Reutilizamos el array `listaEquiposDesdeFicheroOBJ` que obtuvimos de la lectura el fichero .obj en el apartado de arriba
-            System.out.println("--- FICHEROS ASC ---");
             FicheroUtils.guardarDatosEnFicheroASC(ficheroAsc, listaEquiposDesdeFicheroOBJ);
-            FicheroUtils.leerDatosDeFicheroASCYMostrarEntradasEnRango(ficheroAsc, 200, 300);
+            ArrayList<Equipo> listaEquiposDesdeASC = FicheroUtils.leerDatosDeFicheroASCYMostrarEntradasEnRango(ficheroAsc);
+
+            System.out.println("--- FICHEROS ASC ---");
+            for (Equipo equipo : listaEquiposDesdeASC) {
+                if ((equipo.getNum() >= 200) && (equipo.getNum() <= 300)) {
+                    System.out.println(equipo.toString());
+                }
+            }
+            System.out.println("--- --------- ---");
+
+            /**
+             * Del fichero de Objetos, lee todos los registros y crea el correspondiente JSON. Y para
+             * finalizar, lee el fichero que acabas de crear en formato json y muestra la información
+             * por pantalla adecuadamente, leyéndolo como objetos con el método que elijas.
+             */
+            // Reutilizamos el array `listaEquiposDesdeFicheroOBJ` que obtuvimos de la lectura el fichero .obj en el apartado de arriba
+            FicheroUtils.escribirJSON(ficheroJSON, listaEquiposDesdeFicheroOBJ);
+
+            ArrayList<Equipo> listaEquiposDesdeJSON = FicheroUtils.leerJSON(ficheroJSON);
+
+            System.out.println("--- JSON ---");
+            for (Equipo equipo : listaEquiposDesdeJSON) {
+                System.out.println(equipo.toString());
+            }
+            System.out.println("--- --------- ---");
         }
         catch (IOException e) {
             throw new RuntimeException(e);

@@ -2,6 +2,14 @@ package ut1_manejodeficheros;
 
 import java.io.*;
 import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class FicheroUtils {
     /**
@@ -158,25 +166,71 @@ public class FicheroUtils {
     /* Lee el fichero ASC y muestra solamente las entradas cuyo número de equipo esté en el rango
     *  delimitado por numEquipoMin y numEquipoMax (ambos inclusive)
     *  */
-    public static void leerDatosDeFicheroASCYMostrarEntradasEnRango(String ficheroASC, int numEquipoMin, int numEquipoMax) throws IOException {
+    public static ArrayList<Equipo> leerDatosDeFicheroASCYMostrarEntradasEnRango(String ficheroASC) throws IOException {
         DataInputStream dis = new DataInputStream(new FileInputStream(ficheroASC));
+        ArrayList<Equipo> listaEquipos = new ArrayList<>();
 
         while (dis.available() > 0) {
             Equipo equipo = new Equipo();
 
             equipo.setNum(dis.readInt());
-            if (!(equipo.getNum() >= numEquipoMin) || !(equipo.getNum() <= numEquipoMax)) {
-                // Continúa al siguiente registro si el número del club no está en el rango indicado
-                continue;
+            equipo.setNombre(dis.readUTF());
+            equipo.setPresidente(dis.readUTF());
+            equipo.setTelefono(dis.readInt());
+            equipo.setLocalidad(dis.readUTF());
+
+            listaEquipos.add(equipo);
+        }
+
+        return listaEquipos;
+    }
+
+    public static void escribirJSON(String ficheroJSON, ArrayList<Equipo> listaEquipos) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (FileWriter fw = new FileWriter(ficheroJSON)) {
+
+            // Verificar si la lista no está vacía
+            if (listaEquipos != null && !listaEquipos.isEmpty()) {
+                gson.toJson(listaEquipos, fw);
             }
             else {
-                equipo.setNombre(dis.readUTF());
-                equipo.setPresidente(dis.readUTF());
-                equipo.setTelefono(dis.readInt());
-                equipo.setLocalidad(dis.readUTF());
-
-                System.out.println(equipo.toString());
+                // Si la lista está vacía, escribir un array vacío
+                fw.write("[]");
             }
         }
+        catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static ArrayList<Equipo> leerJSON(String ficheroJSON) {
+        ArrayList<Equipo> listaEquipos = new ArrayList<>();
+        Gson ob = new Gson();
+
+        try {
+            String cadena = LeerFich(ficheroJSON);
+            JsonParser jsonParser = new JsonParser();
+            JsonArray jsonArray = jsonParser.parse(cadena).getAsJsonArray();
+            for (JsonElement elemento : jsonArray) {
+                JsonObject jsonobj = elemento.getAsJsonObject();
+                Equipo equipo = new Equipo(
+                        jsonobj.get("num").getAsInt(),
+                        jsonobj.get("nombre").getAsString(),
+                        jsonobj.get("presidente").getAsString(),
+                        jsonobj.get("telefono").getAsInt(),
+                        jsonobj.get("localidad").getAsString()
+                );
+                listaEquipos.add(equipo);
+            }
+        }
+        catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return listaEquipos;
+    }
+
+    private static String LeerFich(String fichero) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(fichero)));
     }
 }
