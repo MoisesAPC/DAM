@@ -12,6 +12,7 @@ public class main {
         final String ficheroSecuencial = "ficheros/datosEquipos.txt";
         final String ficheroRAF = "ficheros/datosEquipos.dat";
         final String ficheroObj = "ficheros/datosEquipos.obj";
+        final String ficheroAsc = "ficheros/datosEquipos.asc";
 
         /**
          * La misma u otra clase leerá este fichero secuencial y según va leyendo los
@@ -49,6 +50,17 @@ public class main {
             for (Equipo equipo : listaEquiposDesdeFicheroOBJ) {
                 System.out.println(equipo.toString());
             }
+
+            /**
+             * Lee los objetos y GUARDA los datos como datos primitivos de Java en un fichero
+             * Equipos.asc. Luego lees el fichero y muestras sólo aquellos registros con número de
+             * club entre 200 y 300.
+             */
+
+            // Reutilizamos el array `listaEquiposDesdeFicheroOBJ` que obtuvimos de la lectura el fichero .obj en el apartado de arriba
+            System.out.println("--- FICHEROS ASC ---");
+            FicheroUtils.guardarDatosEnFicheroASC(ficheroAsc, listaEquiposDesdeFicheroOBJ);
+            FicheroUtils.leerDatosDeFicheroASCYMostrarEntradasEnRango(ficheroAsc, 200, 300);
         }
         catch (IOException e) {
             throw new RuntimeException(e);

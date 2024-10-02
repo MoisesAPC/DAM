@@ -101,6 +101,10 @@ public class FicheroUtils {
                 raf.seek(posicionRegistroActual);
                 Equipo equipo = leerEquipoDeFichero(raf);
                 equipo.setTelefono(telefono);
+
+                // `leerEquipoDeFichero` hace que el file pointer avance,
+                // por lo que volvemos a hacer un seek para corregirlo
+                raf.seek(posicionRegistroActual);
                 escribirEquipoEnFichero(raf, equipo);
                 return;
             }
@@ -136,6 +140,43 @@ public class FicheroUtils {
         else {
             // No se ha encontrado ningún registro, o la posición es inválida
             return null;
+        }
+    }
+
+    public static void guardarDatosEnFicheroASC(String ficheroASC, ArrayList<Equipo> listaEquipos) throws IOException {
+        DataOutputStream dos = new DataOutputStream(new FileOutputStream(ficheroASC));
+
+        for (Equipo equipo : listaEquipos) {
+            dos.writeInt(equipo.getNum());
+            dos.writeUTF(equipo.getNombre());
+            dos.writeUTF(equipo.getPresidente());
+            dos.writeInt(equipo.getTelefono());
+            dos.writeUTF(equipo.getLocalidad());
+        }
+    }
+
+    /* Lee el fichero ASC y muestra solamente las entradas cuyo número de equipo esté en el rango
+    *  delimitado por numEquipoMin y numEquipoMax (ambos inclusive)
+    *  */
+    public static void leerDatosDeFicheroASCYMostrarEntradasEnRango(String ficheroASC, int numEquipoMin, int numEquipoMax) throws IOException {
+        DataInputStream dis = new DataInputStream(new FileInputStream(ficheroASC));
+
+        while (dis.available() > 0) {
+            Equipo equipo = new Equipo();
+
+            equipo.setNum(dis.readInt());
+            if (!(equipo.getNum() >= numEquipoMin) || !(equipo.getNum() <= numEquipoMax)) {
+                // Continúa al siguiente registro si el número del club no está en el rango indicado
+                continue;
+            }
+            else {
+                equipo.setNombre(dis.readUTF());
+                equipo.setPresidente(dis.readUTF());
+                equipo.setTelefono(dis.readInt());
+                equipo.setLocalidad(dis.readUTF());
+
+                System.out.println(equipo.toString());
+            }
         }
     }
 }
