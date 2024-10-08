@@ -8,7 +8,7 @@ public class Padre {
         final String dirReproductor = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe";
 
         try {
-            ProcessBuilder pb = new ProcessBuilder("java", "-cp", System.getProperty("java.class.path"), "actividad2.ProcesoHijo");
+            ProcessBuilder pb = new ProcessBuilder("java", "-cp", System.getProperty("java.class.path"), "actividad2.Hijo");
             Process procesoHijo = pb.start();
 
             ProcessBuilder pbReproductor = new ProcessBuilder(dirReproductor, dirCancion);
