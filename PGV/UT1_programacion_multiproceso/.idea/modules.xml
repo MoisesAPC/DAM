@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ut1_actividadEvaluacion.iml" filepath="$PROJECT_DIR$/ut1_actividadEvaluacion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UT1_programacion_multiproceso.iml" filepath="$PROJECT_DIR$/UT1_programacion_multiproceso.iml" />
     </modules>
   </component>
 </project>
