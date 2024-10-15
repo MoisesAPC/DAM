@@ -1,10 +1,4 @@
 @echo off
 
-:: Evita que se impriman comandos al ejecutarse
-setlocal
-
-:: Obtener el nombre del archivo .bat
-set "filename=%~nx0"
-
-attrib +h "%filename%"
-pause
+:: Pone el fichero a oculto (%1 es el argumento, pasado por ProcessBuilder)
+attrib +h %1

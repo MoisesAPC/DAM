@@ -13,7 +13,7 @@ public class Proceso2JAR {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String nombreDeCarpeta = reader.readLine();
         File carpeta = new File(nombreDeCarpeta);
-        
+
         if (!carpeta.exists() || !carpeta.isDirectory()) {
             System.out.println("La carpeta no existe o no es un directorio.");
             return;
@@ -32,13 +32,17 @@ public class Proceso2JAR {
                 /**
                  * Creamos un proceso por fichero, cada uno ejecutará "proceso3.bat"
                  */
-                    ProcessBuilder processBuilder3 = new ProcessBuilder("cmd.exe", "/c", "proceso3.bat");
-                /**
-                 * TRUCO: Ponemos el directorio de la carpeta como el
-                 * working directory para que nos funcionen las rutas relativas
-                 */
-                processBuilder3.directory(carpeta);
+                ProcessBuilder processBuilder3 = new ProcessBuilder("./ficheros/proceso3.bat", file.getAbsolutePath());
+                // De esta manera, el proceso puede mostrar errores a través de la consola (1)
+                processBuilder3.redirectErrorStream(true);
                 Process proceso3 = processBuilder3.start();
+
+                // De esta manera, el proceso puede mostrar errores a través de la consola (2)
+                reader = new BufferedReader(new InputStreamReader(proceso3.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                }
             }
         }
     }
