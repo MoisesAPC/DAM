@@ -21,8 +21,10 @@ public class Padre {
         Process proceso1 = procesoBuilder1.start();
         Process proceso2 = procesoBuilder2.start();
 
-        try (OutputStream outputStream = proceso2.getOutputStream();
-             PrintWriter writer = new PrintWriter(outputStream)) {
+        try (
+             OutputStream outputStream = proceso2.getOutputStream();
+             PrintWriter writer = new PrintWriter(outputStream)
+        ) {
             writer.println(nombreCarpeta);
             writer.flush();
         }
