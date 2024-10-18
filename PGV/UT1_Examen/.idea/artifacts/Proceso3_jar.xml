@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Proceso3:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Proceso3_jar</output-path>
+    <root id="archive" name="UT1_Examen.jar">
+      <element id="module-output" name="UT1_Examen" />
+    </root>
+  </artifact>
+</component>
