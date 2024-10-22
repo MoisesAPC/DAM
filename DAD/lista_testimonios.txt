@@ -1,0 +1,17 @@
+users.map((usuario) => <Testimonio
+
+key={usuario.id}
+
+name={usuario.name}
+
+username={usuario.username}
+
+country={usuario.country}
+
+profession={usuario.profession}
+
+enterprise={usuario.enterprise}
+
+comment={usuario.comment}/>)
+
+)

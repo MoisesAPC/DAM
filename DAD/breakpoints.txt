@@ -1,0 +1,29 @@
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
+});
+
+
+
+
+<Box
+  sx={{
+    width: {
+      xs: '100%', // Ancho del 100% en pantallas extra pequeñas
+      sm: '50%',  // Ancho del 50% en pantallas pequeñas y superiores
+    },
+    backgroundColor: {
+      xs: 'red',    // Fondo rojo en pantallas extra pequeñas
+      sm: 'blue',   // Fondo azul en pantallas pequeñas y superiores
+    },
+  }}
+>
+  Contenido responsivo
+</Box>
