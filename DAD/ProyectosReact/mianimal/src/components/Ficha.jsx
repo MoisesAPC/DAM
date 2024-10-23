@@ -11,6 +11,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+// Importamos el botón de "milibreria"
+import { CustomButton } from 'milibreria'
+
 function Ficha() {
   const [count, setCount] = useState(0)
   
@@ -46,9 +49,21 @@ function Ficha() {
 
         <Avatar alt={datos.alt} src={datos.imageurl} sx={{ width: 450, height: 450, mb: 2}}></Avatar>
 
-        <Button variant='contained' sx={{color: 'orange', backgroundColor: 'green', fontWeight: 'bold'}} endIcon={<SendIcon />} onClick={handleClick} disabled>
+        <CustomButton variant='contained' sx={{color: 'orange', backgroundColor: 'green', fontWeight: 'bold'}} endIcon={<SendIcon />} onClick={handleClick} disabled>
           Me has hecho {count} rascaditas
-        </Button>
+        </CustomButton>
+
+        <CustomButton
+          text={`Me has hecho ${count} rascaditas`}
+          txtcolor="black"
+          bgcolor="red"
+          size="small"
+          onClick={handleClick}
+          disabled={false}
+        >
+          Me has hecho {count} rascaditas
+        </CustomButton>
+
       </div>
     </Stack>
   )
