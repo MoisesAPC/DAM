@@ -10,7 +10,7 @@ public class MiSQLite {
         try {
             Class.forName("org.sqlite.JDBC"); // Cargamos el driver (sqlite)
 
-            final String databasePath = "C:/Users/Alumnadomañana/Desktop/DAM/AED/UT2_chuletas_y_ejemplos/Actividad1/bd/ejemplo.db";
+            final String databasePath = "bd/ejemplo.db";
 
             // Se establece conexión con BD
             Connection conexion = DriverManager.getConnection("jdbc:sqlite:" + databasePath);

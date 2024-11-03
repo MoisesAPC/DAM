@@ -1,0 +1,849 @@
+SELECT
+The SELECT statement is used to retrieve data from one or more database tables123.
+sql
+SELECT column1, column2 FROM table_name;
+
+To select all columns, you can use the asterisk (*):
+sql
+SELECT * FROM table_name;
+
+WHERE
+The WHERE clause is used to filter records based on a specified condition123:
+sql
+SELECT column1, column2 FROM table_name
+WHERE condition;
+
+For example:
+sql
+SELECT name, age FROM customers
+WHERE age > 30;
+
+INSERT INTO
+The INSERT INTO statement is used to add new records to a table23:
+sql
+INSERT INTO table_name (column1, column2, column3)
+VALUES (value1, value2, value3);
+
+UPDATE
+The UPDATE statement is used to modify existing records in a table23:
+sql
+UPDATE table_name
+SET column1 = value1, column2 = value2
+WHERE condition;
+
+DELETE
+The DELETE statement is used to remove records from a table23:
+sql
+DELETE FROM table_name
+WHERE condition;
+
+ORDER BY
+The ORDER BY keyword is used to sort the result set in ascending or descending order13:
+sql
+SELECT column1, column2 FROM table_name
+ORDER BY column1 ASC|DESC;
+
+GROUP BY
+The GROUP BY statement groups rows with the same values in specified columns13:
+sql
+SELECT column1, COUNT(*) FROM table_name
+GROUP BY column1;
+
+JOIN
+JOIN clauses are used to combine rows from two or more tables based on a related column between them13. Here's an example of an INNER JOIN:
+sql
+SELECT column1, column2
+FROM table1
+INNER JOIN table2 ON table1.column_name = table2.column_name;
+
+These SQL commands form the foundation of database manipulation and querying. They allow you to retrieve, insert, update, and delete data, as well as perform more complex operations like sorting, grouping, and joining tables. Mastering these commands will give you a solid basis for working with SQL databases.
+
+
+
+-------------------------------------------------------------------------------------------
+
+Here's the list of basic, common, and useful SQL commands in raw text format with comments:
+-- SELECT: Used to retrieve data from one or more database tables
+SELECT column1, column2 FROM table_name;
+-- Select all columns
+SELECT * FROM table_name;
+-- WHERE: Used to filter records based on a specified condition
+SELECT column1, column2 FROM table_name
+WHERE condition;
+-- Example of WHERE clause
+SELECT name, age FROM customers
+WHERE age > 30;
+-- INSERT INTO: Used to add new records to a table
+INSERT INTO table_name (column1, column2, column3)
+VALUES (value1, value2, value3);
+-- UPDATE: Used to modify existing records in a table
+UPDATE table_name
+SET column1 = value1, column2 = value2
+WHERE condition;
+-- DELETE: Used to remove records from a table
+DELETE FROM table_name
+WHERE condition;
+-- ORDER BY: Used to sort the result set in ascending or descending order
+SELECT column1, column2 FROM table_name
+ORDER BY column1 ASC|DESC;
+-- GROUP BY: Groups rows with the same values in specified columns
+SELECT column1, COUNT(*) FROM table_name
+GROUP BY column1;
+-- JOIN: Used to combine rows from two or more tables based on a related column
+-- Example of INNER JOIN
+SELECT column1, column2
+FROM table1
+INNER JOIN table2 ON table1.column_name = table2.column_name;
+
+-- These commands form the foundation of database manipulation and querying.
+-- They allow you to retrieve, insert, update, and delete data, as well as
+-- perform more complex operations like sorting, grouping, and joining tables.
+
+-------------------------------------------------------------------------------------------
+SQL JOIN commands are used to combine rows from two or more tables based on a related column between them. Here's an explanation of the main types of JOIN commands:
+INNER JOIN
+INNER JOIN returns only the rows that have matching values in both tables.
+sql
+SELECT columns
+FROM table1
+INNER JOIN table2
+ON table1.column = table2.column;
+
+This join type returns only the records where there is a match in both tables12.
+LEFT JOIN (or LEFT OUTER JOIN)
+LEFT JOIN returns all records from the left table and the matched records from the right table. If there's no match, the result is NULL on the right side.
+sql
+SELECT columns
+FROM table1
+LEFT JOIN table2
+ON table1.column = table2.column;
+
+This join type returns all records from the left table, even if there are no matches in the right table12.
+RIGHT JOIN (or RIGHT OUTER JOIN)
+RIGHT JOIN returns all records from the right table and the matched records from the left table. If there's no match, the result is NULL on the left side.
+sql
+SELECT columns
+FROM table1
+RIGHT JOIN table2
+ON table1.column = table2.column;
+
+This join type returns all records from the right table, even if there are no matches in the left table12.
+FULL OUTER JOIN
+FULL OUTER JOIN returns all records when there is a match in either the left or right table.
+sql
+SELECT columns
+FROM table1
+FULL OUTER JOIN table2
+ON table1.column = table2.column;
+
+This join type returns all rows from both tables, with NULL values for columns that don't have a match12.
+SELF JOIN
+A SELF JOIN is used to join a table to itself. It's useful when you want to compare rows within the same table.
+sql
+SELECT columns
+FROM table1 AS t1
+JOIN table1 AS t2
+ON t1.column = t2.column;
+
+In this case, you use aliases to refer to the same table multiple times in the query35.
+CROSS JOIN
+A CROSS JOIN returns the Cartesian product of both tables, meaning it combines each row from the first table with every row from the second table.
+sql
+SELECT columns
+FROM table1
+CROSS JOIN table2;
+
+This join doesn't require an ON clause as it simply combines all rows from both tables5.
+These JOIN commands allow you to combine data from multiple tables in various ways, depending on your specific requirements. The choice of which JOIN to use depends on the relationship between your tables and the data you need to retrieve.
+---------------------------------------------------------------------------------------------
+Here are the most common SQL commands for creating, displaying the contents, and deleting databases and tables:
+Database Operations
+Create a Database
+sql
+CREATE DATABASE database_name;
+
+List All Databases
+sql
+SHOW DATABASES;
+
+Select a Database
+sql
+USE database_name;
+
+Delete a Database
+sql
+DROP DATABASE database_name;
+
+Table Operations
+Create a Table
+sql
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype,
+    ...
+);
+
+Show All Tables in a Database
+sql
+SHOW TABLES;
+
+Display Table Structure
+sql
+DESCRIBE table_name;
+
+or
+sql
+SHOW COLUMNS FROM table_name;
+
+Display Table Contents
+sql
+SELECT * FROM table_name;
+
+Delete a Table
+sql
+DROP TABLE table_name;
+
+Delete All Data from a Table (but keep the table structure)
+sql
+TRUNCATE TABLE table_name;
+
+Additional Useful Commands
+Add a New Column to a Table
+sql
+ALTER TABLE table_name
+ADD column_name datatype;
+
+Remove a Column from a Table
+sql
+ALTER TABLE table_name
+DROP COLUMN column_name;
+
+Rename a Table
+sql
+RENAME TABLE old_table_name TO new_table_name;
+
+Create an Index on a Table
+sql
+CREATE INDEX index_name
+ON table_name (column1, column2, ...);
+
+These commands cover the basic operations for creating, displaying, and deleting databases and tables in SQL. Remember that the exact syntax may vary slightly depending on the specific database management system you're using (e.g., MySQL, PostgreSQL, SQL Server)1234.
+------------------------------------------------------------------------------------------------------------------------
+
+Creating Foreign Keys
+Foreign keys are typically created when defining table structures. Here are two common ways to create foreign keys:
+During table creation:
+sql
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    order_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+);
+
+Altering an existing table:
+sql
+ALTER TABLE Orders
+ADD CONSTRAINT fk_customer
+FOREIGN KEY (customer_id) REFERENCES Customers(customer_id);
+
+Accessing Data with Foreign Keys
+Foreign keys allow you to join related tables and retrieve data from multiple tables:
+sql
+SELECT Orders.order_id, Customers.customer_name, Orders.order_date
+FROM Orders
+INNER JOIN Customers ON Orders.customer_id = Customers.customer_id;
+
+This query joins the Orders and Customers tables using the foreign key relationship1.
+Changing Foreign Key References
+To modify a foreign key reference, you typically need to drop the existing constraint and add a new one:
+Drop the existing foreign key:
+sql
+ALTER TABLE Orders
+DROP CONSTRAINT fk_customer;
+
+Add the new foreign key with updated references:
+sql
+ALTER TABLE Orders
+ADD CONSTRAINT fk_customer
+FOREIGN KEY (customer_id) REFERENCES NewCustomers(customer_id);
+
+Cascading Actions
+Foreign keys can include cascading actions to automatically update or delete related records:
+sql
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id) 
+    REFERENCES Customers(customer_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+This setup will automatically delete or update related records in the Orders table when a customer is deleted or updated in the Customers table3.
+Multiple Column Foreign Keys
+You can create foreign keys that reference multiple columns:
+sql
+CREATE TABLE OrderDetails (
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id, product_id) 
+    REFERENCES Products(order_id, product_id)
+);
+
+This creates a composite foreign key that references two columns in the Products table4.
+Checking Foreign Key Constraints
+To view foreign key constraints in a database:
+sql
+SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE CONSTRAINT_TYPE = 'FOREIGN KEY';
+
+This query will show all foreign key constraints in the current database5.
+Foreign keys are crucial for maintaining data integrity and establishing relationships between tables in relational databases. They ensure that data in related tables remains consistent and allow for efficient querying of related data across multiple tables.
+------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+SQL Constraints
+SQL Constraints are the rules applied to a data columns or the complete table to limit the type of data that can go into a table. When you try to perform any INSERT, UPDATE, or DELETE operation on the table, RDBMS will check whether that data violates any existing constraints and if there is any violation between the defined constraint and the data action, it aborts the operation and returns an error.
+
+We can define a column level or a table level constraints. The column level constraints are applied only to one column, whereas the table level constraints are applied to the whole table.
+
+
+Ezoic
+SQL Create Constraints
+We can create constraints on a table at the time of a table creation using the CREATE TABLE statement, or after the table is created, we can use the ALTER TABLE statement to create or delete table constraints.
+
+CREATE TABLE table_name (
+   column1 datatype constraint,
+   column2 datatype constraint,
+   ....
+   columnN datatype constraint
+);
+Different RDBMS allows to define different constraints. This tutorial will discuss about 7 most important constraints available in MySQL.
+
+Learn SQL in-depth with real-world projects through our SQL certification course. Enroll and become a certified expert to boost your career.
+
+NOT NULL Constraint
+When applied to a column, NOT NULL constraint ensure that a column cannot have a NULL value. Following is the example to create a NOT NULL constraint:
+
+Open Compiler
+CREATE TABLE CUSTOMERS (
+   ID INT NOT NULL,
+   NAME VARCHAR (20) NOT NULL,
+   AGE INT NOT NULL,
+   ADDRESS CHAR (25),
+   SALARY DECIMAL (18, 2)
+);
+Check further detail on NOT NULL Constraint
+
+
+Ezoic
+UNIQUE Key Constraint
+When applied to a column, UNIQUE Key constraint ensure that a column accepts only UNIQUE values. Following is the example to create a UNIQUE Key constraint on column ID. Once this constraint is created, column ID can't be null and it will accept only UNIQUE values.
+
+Open Compiler
+CREATE TABLE CUSTOMERS (
+   ID INT NOT NULL UNIQUE,
+   NAME VARCHAR (20) NOT NULL,
+   AGE INT NOT NULL,
+   ADDRESS CHAR (25),
+   SALARY DECIMAL (18, 2)
+);
+Check further detail on Unique Key Constraint
+
+DEFAULT Value Constraint
+When applied to a column, DEFAULT Value constraint provides a default value for a column when none is specified. Following is the example to create a DEFAULT constraint on column NAME. Once this constraint is created, column NAME will set to "Not Available" value if NAME is not set to a value.
+
+Open Compiler
+CREATE TABLE CUSTOMERS (
+   ID INT NOT NULL UNIQUE,
+   NAME VARCHAR (20) DEFAULT 'Not Available',
+   AGE INT NOT NULL,
+   ADDRESS CHAR (25),
+   SALARY DECIMAL (18, 2)
+);
+Check further detail on DEFAULT Value Constraint
+
+
+Ezoic
+PRIMARY Key Constraint
+When applied to a column, PRIMARY Key constraint ensure that a column accepts only UNIQUE value and there can be a single PRIMARY Key on a table but multiple columns can constituet a PRIMARY Key. Following is the example to create a PRIMARY Key constraint on column ID. Once this constraint is created, column ID can't be null and it will accept only unique values.
+
+Open Compiler
+CREATE TABLE CUSTOMERS(
+   ID          INT NOT NULL,
+   NAME        VARCHAR (20) NOT NULL,
+   AGE         INT NOT NULL,
+   ADDRESS     CHAR (25),
+   SALARY      DECIMAL (18, 2),
+   PRIMARY KEY (ID)
+);
+Check further detail on PRIMARY Key Constraint
+
+FOREIGN Key Constraint
+FOREIGN Key constraint maps with a column in another table and uniquely identifies a row/record in that table. Following is an example to create a foreign key constraint on column ID available in CUSTOMERS table as shown in the statement below −
+
+CREATE TABLE ORDERS (
+   ID INT NOT NULL,
+   DATE DATETIME,
+   CUSTOMER_ID INT FOREIGN KEY REFERENCES CUSTOMERS(ID),
+   AMOUNT DECIMAL,
+   PRIMARY KEY (ID)
+);
+Check further detail on FOREIGN Key Constraint
+
+CHECK Value Constraint
+When applied to a column, CHECK Value constraint works like a validation and it is used to check the validity of the data entered into the particular column of the table. table and uniquely identifies a row/record in that table. Following is an example to create a CHECK validation on AGE column which will not accept if its value is below to 18.
+
+Open Compiler
+CREATE TABLE CUSTOMERS(
+   ID          INT NOT NULL,
+   NAME        VARCHAR (20) NOT NULL,
+   AGE         INT NOT NULL CHECK(AGE>=18),
+   ADDRESS     CHAR (25),
+   SALARY      DECIMAL (18, 2),
+   PRIMARY KEY (ID)
+);
+Check further detail on CHECK Value Constraint
+
+INDEX Constraint
+The INDEX constraints are created to speed up the data retrieval from the database. An Index can be created by using a single or group of columns in a table. A table can have a single PRIMARY Key but can have multiple INDEXES. An Index can be Unique or Non Unique based on requirements. Following is an example to create an Index on Age Column of the CUSTOMERS table.
+
+CREATE INDEX idx_age ON CUSTOMERS ( AGE );
+Check further detail on INDEX Constraint
+
+Dropping SQL Constraints
+Any constraint that you have defined can be dropped using the ALTER TABLE command with the DROP CONSTRAINT option. For example, to drop the primary key constraint from the CUSTOMERS table, you can use the following command.
+
+ALTER TABLE CUSTOMERS DROP CONSTRAINT PRIMARY KEY;
+Some RDBMS allow you to disable constraints instead of permanently dropping them from the database, which you may want to temporarily disable the constraints and then enable them later.
+
+Data Integrity Constraints
+Data integrity constraints are used to ensure the overall accuracy, completeness, and consistency of data. Now a days data integrity also refers to the data safety in regard to regulatory compliance, such as GDPR compliance etc.
+
+Data integrity is handled in a relational database through the concept of referential integrity. There are many types of integrity constraints that play a role in Referential Integrity (RI). These constraints include Primary Key, Foreign Key, Unique Constraints and other constraints which are mentioned above.
+
+---------------------------------------------------------
+Based on the search results and common SQL practices, here are the most common data types for table entries:
+Numeric Data Types:
+INT: For storing whole numbers134
+BIGINT: For larger whole numbers13
+FLOAT/REAL: For approximate numeric values134
+DECIMAL/NUMERIC: For precise numeric values, often used for financial data134
+String Data Types:
+CHAR: Fixed-length character strings134
+VARCHAR: Variable-length character strings134
+TEXT: For longer text data12
+Date and Time Data Types:
+DATE: Stores date (year, month, day)134
+TIME: Stores time (hour, minute, second)134
+DATETIME/TIMESTAMP: Stores both date and time134
+----------------------------------------------------------------
+Table Creation
+sql
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Department VARCHAR(50),
+    Salary DECIMAL(10, 2)
+);
+
+This creates a table named "Employees" with columns for EmployeeID, FirstName, LastName, Department, and Salary15.
+Data Insertion
+sql
+INSERT INTO Employees (EmployeeID, FirstName, LastName, Department, Salary)
+VALUES 
+    (1, 'John', 'Doe', 'IT', 75000.00),
+    (2, 'Jane', 'Smith', 'HR', 65000.00),
+    (3, 'Mike', 'Johnson', 'Sales', 80000.00);
+
+This inserts three rows of data into the Employees table5.
+Data Update
+sql
+UPDATE Employees
+SET Salary = 78000.00
+WHERE EmployeeID = 1;
+
+This updates the salary of the employee with EmployeeID 1.
+Data Deletion
+sql
+DELETE FROM Employees
+WHERE EmployeeID = 3;
+
+This deletes the row for the employee with EmployeeID 3.
+Additional Examples
+Selecting Data
+sql
+SELECT * FROM Employees;
+
+This retrieves all rows and columns from the Employees table.
+Altering Table Structure
+sql
+ALTER TABLE Employees
+ADD Email VARCHAR(100);
+
+This adds a new column named "Email" to the Employees table.
+Creating a Table with Constraints
+sql
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    OrderDate DATE,
+    TotalAmount DECIMAL(10, 2),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+This creates an Orders table with a foreign key constraint referencing a Customers table15.
+Remember to adjust the data types and constraints according to your specific database system and requirements. These examples provide a basic framework for common SQL operations on tables.
+----------------------------------------------------------------
+Borrar todos los registros de una tabla sin borrar la tabla:
+DELETE FROM Proveedores;
+DELETE FROM Productos;
+
+Borrar foreign keys:
+DELETE FROM productos WHERE cod_prov = 'P001';
+-- Ahora puedes eliminar el proveedor
+DELETE FROM proveedores WHERE cod_prov = 'P001';
+
+ó bien
+
+ALTER TABLE productos
+DROP CONSTRAINT productos_cod_prov_fkey,
+ADD CONSTRAINT productos_cod_prov_fkey 
+FOREIGN KEY (cod_prov) REFERENCES proveedores(cod_prov) 
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+---------------------------------------------------------
+
+PROCEDIMIENTOS ALMACENADOS
+
+DROP DATABASE IF EXISTS test;
+CREATE DATABASE test;
+USE test;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS calcular_area_circulo$$
+CREATE PROCEDURE calcular_area_circulo(
+    IN radio DOUBLE,
+    OUT area DOUBLE
+)
+BEGIN
+    SET area = PI() * POW(radio, 2);
+END
+$$
+
+DROP PROCEDURE IF EXISTS calcular_volumen_cilindro$$
+CREATE PROCEDURE calcular_volumen_cilindro(
+    IN radio DOUBLE,
+    IN altura DOUBLE,
+    OUT volumen DOUBLE
+)
+BEGIN
+    DECLARE area DOUBLE;
+
+  -- La variable local `area` almacenará el valor de salida del procedimiento
+    CALL calcular_area_circulo(radio, area);
+
+    SET volumen = area * altura;
+END
+$$
+
+DELIMITER ;
+-- La variable de usuario `@volumen` almacenará el valor de salida del procedimiento
+CALL calcular_volumen_cilindro(4.5, 6, @volumen);
+SELECT @volumen;
+
+Escriba un procedimiento llamado contar_productos que reciba como entrada el nombre de la gama y devuelva el número de productos que existen dentro de esa gama. Resuelva el ejercicio de dos formas distintas, utilizando SET y SELECT ... INTO.
+
+-- Solución 1. Utilizando SET
+DELIMITER $$
+DROP PROCEDURE IF EXISTS contar_productos$$
+CREATE PROCEDURE contar_productos(IN gama VARCHAR(50), OUT total INT UNSIGNED)
+BEGIN
+  SET total = (
+    SELECT COUNT(*)
+    FROM producto
+    WHERE producto.gama = gama);
+END
+$$
+
+DELIMITER ;
+CALL contar_productos('Herramientas', @total);
+SELECT @total;
+
+-- Solución 2. Utilizando SELECT ... INTO
+DELIMITER $$
+DROP PROCEDURE IF EXISTS contar_productos$$
+CREATE PROCEDURE contar_productos(IN gama VARCHAR(50), OUT total INT UNSIGNED)
+BEGIN
+  SELECT COUNT(*)
+  INTO total
+  FROM producto
+  WHERE producto.gama = gama;
+END
+$$
+
+DELIMITER ;
+CALL contar_productos('Herramientas', @total);
+SELECT @total;
+Nota importante:
+
+En el ejemplo anterior, hemos utilizado la variable de usuario @total para almacenar el parámetro de salida del procedimiento contar_productos.
+
+Tenga en cuenta que el uso del carácter @ en la variable @total es debido a que estamos utilizando una variable definida por el usuario en el ámbito de la sesión del usuario y no porque estemos almacenando un parámetro de salida del procedimiento.
+
+Ejemplo 3:
+
+Escribe un procedimiento que se llame calcular_max_min_media, que reciba como parámetro de entrada el nombre de la gama de un producto y devuelva como salida tres parámetros. El precio máximo, el precio mínimo y la media de los productos que existen en esa gama. Resuelva el ejercicio de dos formas distintas, utilizando SET y SELECT ... INTO.
+
+-- Solucioń 1. Utilizando SET
+DELIMITER $$
+DROP PROCEDURE IF EXISTS calcular_max_min_media$$
+CREATE PROCEDURE calcular_max_min_media(
+  IN gama VARCHAR(50),
+    OUT maximo DECIMAL(15, 2),
+  OUT minimo DECIMAL(15, 2),
+    OUT media DECIMAL(15, 2)
+)
+BEGIN
+  SET maximo = (
+    SELECT MAX(precio_venta)
+    FROM producto
+        WHERE producto.gama = gama);
+
+  SET minimo = (
+    SELECT MIN(precio_venta)
+    FROM producto
+        WHERE producto.gama = gama);
+
+  SET media = (
+    SELECT AVG(precio_venta)
+    FROM producto
+        WHERE producto.gama = gama);
+END
+$$
+
+DELIMITER ;
+CALL calcular_max_min_media('Herramientas', @maximo, @minimo, @media);
+SELECT @maximo, @minimo, @media;
+
+-- Solucioń 2. Utilizando SELECT ... INTO
+DELIMITER $$
+DROP PROCEDURE IF EXISTS calcular_max_min_media$$
+CREATE PROCEDURE calcular_max_min_media(
+  IN gama VARCHAR(50),
+    OUT maximo DECIMAL(15, 2),
+  OUT minimo DECIMAL(15, 2),
+    OUT media DECIMAL(15, 2)
+)
+BEGIN
+  SELECT
+    MAX(precio_venta),
+    MIN(precio_venta),
+    AVG(precio_venta)
+    FROM producto
+  WHERE producto.gama = gama
+    INTO maximo, minimo, media;
+END
+$$
+
+DELIMITER ;
+CALL calcular_max_min_media('Herramientas', @maximo, @minimo, @media);
+SELECT @maximo, @minimo, @media;
+
+------------------------------------
+
+Ejemplo cursores
+
+Ejemplo:
+
+-- Paso 1
+DROP DATABASE IF EXISTS test;
+CREATE DATABASE test;
+USE test;
+
+-- Paso 2
+CREATE TABLE t1 (
+  id INT UNSIGNED PRIMARY KEY,
+    data VARCHAR(16)
+);
+
+CREATE TABLE t2 (
+  i INT UNSIGNED
+);
+
+CREATE TABLE t3 (
+  data VARCHAR(16),
+    i INT UNSIGNED
+);
+
+INSERT INTO t1 VALUES (1, 'A');
+INSERT INTO t1 VALUES (2, 'B');
+
+INSERT INTO t2 VALUES (10);
+INSERT INTO t2 VALUES (20);
+
+-- Paso 3
+DELIMITER $$
+DROP PROCEDURE IF EXISTS curdemo$$
+CREATE PROCEDURE curdemo()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE a CHAR(16);
+  DECLARE b, c INT;
+  DECLARE cur1 CURSOR FOR SELECT id,data FROM test.t1;
+  DECLARE cur2 CURSOR FOR SELECT i FROM test.t2;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN cur1;
+  OPEN cur2;
+
+  read_loop: LOOP
+    FETCH cur1 INTO b, a;
+    FETCH cur2 INTO c;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    IF b < c THEN
+      INSERT INTO test.t3 VALUES (a,b);
+    ELSE
+      INSERT INTO test.t3 VALUES (a,c);
+    END IF;
+  END LOOP;
+
+  CLOSE cur1;
+  CLOSE cur2;
+END
+
+-- Paso 4
+DELIMITER ;
+CALL curdemo();
+
+SELECT * FROM t3;
+Solución utilizando un bucle WHILE:
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS curdemo$$
+CREATE PROCEDURE curdemo()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE a CHAR(16);
+  DECLARE b, c INT;
+  DECLARE cur1 CURSOR FOR SELECT id,data FROM test.t1;
+  DECLARE cur2 CURSOR FOR SELECT i FROM test.t2;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN cur1;
+  OPEN cur2;
+
+  WHILE done = FALSE DO
+    FETCH cur1 INTO b, a;
+    FETCH cur2 INTO c;
+
+    IF done = FALSE THEN
+    IF b < c THEN
+      INSERT INTO test.t3 VALUES (a,b);
+    ELSE
+      INSERT INTO test.t3 VALUES (a,c);
+    END IF;
+  END IF;
+  END WHILE;
+
+  CLOSE cur1;
+  CLOSE cur2;
+END;
+
+--------------------------------------------------
+Disparador PostgreSQL
+El uso de disparadores (triggers) permite que se ejecuten de manera automática acciones sobre las tablas de nuestra base de datos. De entre todos los lenguajes disponibles, el más sencillo es PL/pgSQL el cual está integrado dentro de PostgreSQL.
+
+CURSO BASES DE DATOS ESPACIALES
+POSTGIS + POSTGRESQL
+
+Más información
+
+¿Qué es un disparador?
+Un disparador (trigger en inglés) es un objeto de una base de datos que define una acción que se ejecutará de manera automática. Este disparador se relaciona con una de las tablas y se ejecuta al realizarse una modificación sobre la misma, normalmente con las sentencias INSERT, UPDATE o DELETE.
+
+Esta función definida en el disparador puede estar programado en diversos lenguajes de programación, como PL/Python, Perl y PL, aunque el más sencillo para la creación de este tipo de objetos es PL/pgSQL. Éste es un lenguaje de programación incorporado en PostgreSQL que permite la escritura de funciones dentro de la base de datos. Posee una sintaxis mucho más rápida que cualquier otro lenguaje debido a que se elimina la sobrecarga de conexión a la base de datos. Debido a esto, las ventajas de usar PL/pgSQL son las siguientes:
+
+• Es fácil de usar
+• Puede usarse para crear funciones y disparadores
+• Añade estructuras de control al lenguaje SQL
+• Puede ejecutar cálculos complejos
+• Hereda todos los tipos, funciones y operadores definidos por el usuario
+
+¿Cómo se programa un disparador?
+Para programar un disparador en PostgreSQL lo primero que debe hacerse es programar la función que se desea que ejecute el disparador. La estructura que tendrá la función será la siguiente:
+
+CREATE FUNCTION funcion_programada()
+	RETURNS trigger AS
+$BODY$
+BEGIN
+	-- En esta línea se escribe la operación que se desea automatizar
+	RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+Una vez creada la función, el siguiente paso es definir el disparador en la tabla en la que se desea que se ejecute:
+
+CREATE TRIGGER nombre_trigger
+{BEFORE | AFTER | INSTEAD OF} {event [OR …]}
+	ON tabla
+[FOR [EACH] {ROW | STATEMENT}]
+	EXECUTE PROCEDURE función_programada;
+
+Ejemplo de disparador
+Vamos a crear un disparador que actualice la fecha en la que se crearon o editaron los elementos de nuestra tabla espacial. Para eso definimos una tabla que tendrá un atributo del tipo fecha y hora llamado fecha:
+
+CREATE TABLE icv.icv_cons
+(
+    gid SERIAL PRIMARY KEY,
+    elemento VARCHAR (254),
+    area integer,
+	fecha_creacion TIMESTAMP WITH TIME ZONE,
+	fecha_mod TIMESTAMP WITH TIME ZONE,
+    geom GEOMETRY(MultiPolygon,25830)
+);
+Como lo que se desea es que se grabe la fecha al crear nuevos elementos y al modificarlos, escribiremos una función para cada una de las dos operaciones:
+
+CREATE OR REPLACE FUNCTION ()
+  RETURNS trigger AS
+$BODY$
+BEGIN
+    NEW. fecha_creacion = now();
+    RETURN NEW;
+END;
+$BODY$
+  LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION public.edited_fecha_column()
+  RETURNS trigger AS
+$BODY$
+BEGIN
+    NEW. fecha_mod = now();
+    RETURN NEW;
+END;
+$BODY$
+  LANGUAGE plpgsql;
+Una vez hemos creado las funciones, vamos a crear los disparadores en la tabla icv_cons:
+
+CREATE TRIGGER fecha_alta
+  BEFORE INSERT
+  ON icv.icv_cons
+  FOR EACH ROW
+  EXECUTE PROCEDURE public.create_fecha_column();
+
+CREATE TRIGGER fecha_mod
+  BEFORE UPDATE
+  ON icv.icv_cons
+  FOR EACH ROW
+  EXECUTE PROCEDURE public.edited_fecha_column();
+Por último, insertamos los valores dentro de la tabla. Como puede observarse en la siguiente imagen, el atributo fecha_creacion se ha actualizado automáticamente:

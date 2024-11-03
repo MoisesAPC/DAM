@@ -1,0 +1,5 @@
+'P001','Suministros Rápidos','Calle Principal 123','555123456',5
+'P002','Distribuidora Global','Avenida Central 456','555234567',3
+'P003','Importaciones del Este','Plaza Mayor 789','555345678',4
+'P004','Mayorista Confiable','Calle Comercio 321','555456789',2
+'P005','Proveedora Nacional','Avenida Industrial 654','555567890',6
