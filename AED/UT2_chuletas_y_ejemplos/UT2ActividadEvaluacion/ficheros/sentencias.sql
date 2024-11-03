@@ -1,6 +1,5 @@
 SELECT * FROM Productos;
 SELECT * FROM Proveedores;
-
 SELECT prod.Nombre_prod, prov.Nombre_prov FROM Productos prod JOIN Proveedores prov ON prod.Cod_prov = prov.Cod_prov WHERE prod.Precio > 2000 ORDER BY prod.Precio DESC;
 SELECT prov.Nombre_prov, prov.Telefono FROM Proveedores prov JOIN Productos prod ON prov.Cod_prov = prod.Cod_prov WHERE LOWER(prod.Nombre_prod) LIKE '%ordenador%';
 SELECT prod.Nombre_prod FROM Productos prod WHERE prod.Stock < 20;

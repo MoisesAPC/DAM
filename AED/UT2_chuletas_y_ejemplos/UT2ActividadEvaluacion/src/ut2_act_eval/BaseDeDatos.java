@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * Clase wrapper que maneja la conexión y operaciones con bases de datos
  */
 public class BaseDeDatos {
+    private int tipoBD = 0;
     public final static int POSTGRESQL = 0;
     public final static int ORACLE = 1;
 
@@ -26,9 +27,11 @@ public class BaseDeDatos {
     private Statement statement = null;
 
     /**
-     * @param tipoBD: 0 (postgresql), 1 (Oracle)
+     * @param tipoBD_: 0 (postgresql), 1 (Oracle)
      */
-    public BaseDeDatos(int tipoBD, String userdb, String passworddb) {
+    public BaseDeDatos(int tipoBD_, String userdb, String passworddb) {
+        tipoBD = tipoBD_;
+
         switch(tipoBD) {
             case 0:
                 driver = "org.postgresql.Driver";
@@ -123,6 +126,20 @@ public class BaseDeDatos {
      * @return
      */
     public void ejecutarSentenciaSQL(String sentencia) {
+        if (sentencia.isEmpty()) {
+            return;
+        }
+
+        /**
+         * Quitamos los ";" si nos encontramos en una base de datos Oracle. Sino, se
+         * producen error de sintaxis
+         */
+        // Check if the string ends with a semicolon
+        if (tipoBD == ORACLE && sentencia.endsWith(";")) {
+            // Remove the semicolon
+            sentencia = sentencia.substring(0, sentencia.length() - 1);
+        }
+
         /**
          * Use executeQuery() for SELECT statements
          * Use executeUpdate() for INSERT, UPDATE, DELETE, and DDL statements

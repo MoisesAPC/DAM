@@ -2,11 +2,16 @@ package ut2_act_eval;
 
 import java.util.ArrayList;
 
+/**
+ * El ejercicio 1 se encuentra en el fichero "Pestano_Castro_Moises_Antonio_UT2_ActividadIntegradora.pdf" en la raíz del proyecto
+ */
 public class Main {
     public static void main(String[] args) {
-        int tipoBD = BaseDeDatos.POSTGRESQL;
-        String usuario = "postgres";
-        String password = "1111";
+        int tipoBD = BaseDeDatos.ORACLE;
+        String usuarioPostgreSQL = "postgres";
+        String passwordPostgreSQL = "1111";
+        String usuarioOracle = "MOISESDB";
+        String passwordOracle = "1111";
 
         final String nombreTablaProveedores = "Proveedores";
         final String ficheroEntradasProveedoresRuta = "ficheros/proveedores.txt";
@@ -16,7 +21,7 @@ public class Main {
 
         final String ficheroEntradaSentenciasSQLRuta = "ficheros/sentencias.sql";
 
-        BaseDeDatos baseDeDatos = new BaseDeDatos(tipoBD, usuario, password);
+        BaseDeDatos baseDeDatos = new BaseDeDatos(tipoBD, usuarioOracle, passwordOracle);
         baseDeDatos.cargarDriver();
         baseDeDatos.conectar();
 
