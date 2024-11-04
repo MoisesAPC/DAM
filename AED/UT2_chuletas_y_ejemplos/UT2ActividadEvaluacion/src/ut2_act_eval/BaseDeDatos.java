@@ -27,7 +27,7 @@ public class BaseDeDatos {
     private Statement statement = null;
 
     /**
-     * @param tipoBD_: 0 (postgresql), 1 (Oracle)
+     * @param tipoBD_: 0 (PostgreSQL), 1 (Oracle)
      */
     public BaseDeDatos(int tipoBD_, String userdb, String passworddb) {
         tipoBD = tipoBD_;
@@ -37,7 +37,7 @@ public class BaseDeDatos {
                 driver = "org.postgresql.Driver";
                 hostname = "localhost";
                 port = "5432";
-                database = "ut1_act_eval";
+                database = "postgres";
                 url = "jdbc:postgresql://" + hostname + ":" + port + "/" + database;
                 break;
 

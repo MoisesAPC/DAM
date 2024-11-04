@@ -7,10 +7,10 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args) {
-        int tipoBD = BaseDeDatos.ORACLE;
+        int tipoBD = BaseDeDatos.POSTGRESQL;
         String usuarioPostgreSQL = "postgres";
         String passwordPostgreSQL = "1111";
-        String usuarioOracle = "MOISESDB";
+        String usuarioOracle = "MOISES";
         String passwordOracle = "1111";
 
         final String nombreTablaProveedores = "Proveedores";
@@ -21,7 +21,7 @@ public class Main {
 
         final String ficheroEntradaSentenciasSQLRuta = "ficheros/sentencias.sql";
 
-        BaseDeDatos baseDeDatos = new BaseDeDatos(tipoBD, usuarioOracle, passwordOracle);
+        BaseDeDatos baseDeDatos = new BaseDeDatos(tipoBD, usuarioPostgreSQL, passwordPostgreSQL);
         baseDeDatos.cargarDriver();
         baseDeDatos.conectar();
 

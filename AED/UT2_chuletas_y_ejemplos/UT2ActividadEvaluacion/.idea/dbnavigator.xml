@@ -16,10 +16,10 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="b1257cbf-1f49-4b93-ba19-c9cc7e0a9b84">
+    <connection id="488fe274-daae-4ec7-897c-3a7a3895f524">
       <console name="Connection" type="STANDARD" schema="" session="Main" />
     </connection>
-    <connection id="89d1cffa-9151-487f-92a9-a5018d2ff5a5">
+    <connection id="759a6e24-88bb-43f5-8b05-05565410063c">
       <console name="Connection 1" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
@@ -33,30 +33,41 @@
     <connection id="b1257cbf-1f49-4b93-ba19-c9cc7e0a9b84" />
     <connection id="89d1cffa-9151-487f-92a9-a5018d2ff5a5" />
   </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="b1257cbf-1f49-4b93-ba19-c9cc7e0a9b84" active="true" signed="true">
+      <connection id="488fe274-daae-4ec7-897c-3a7a3895f524" active="true" signed="true">
         <database>
-          <name value="Connection" />
+          <name value="Oracle 11g" />
           <description value="" />
-          <database-type value="POSTGRES" />
+          <database-type value="ORACLE" />
           <config-type value="BASIC" />
-          <database-version value="17.0" />
+          <database-version value="11.2" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
-          <url-type value="DATABASE" />
+          <url-type value="SID" />
           <host value="localhost" />
-          <port value="5432" />
-          <database value="ut1_act_eval" />
+          <port value="1521" />
+          <database value="XE" />
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER_PASSWORD" />
-          <user value="postgres" />
+          <user value="SYSTEM" />
           <deprecated-pwd value="MTExMQ==" />
         </database>
         <properties>
@@ -133,13 +144,13 @@
           </object-type-filter>
         </object-filters>
       </connection>
-      <connection id="89d1cffa-9151-487f-92a9-a5018d2ff5a5" active="true" signed="true">
+      <connection id="759a6e24-88bb-43f5-8b05-05565410063c" active="true" signed="true">
         <database>
-          <name value="Connection 1" />
+          <name value="PostgreSQL" />
           <description value="" />
           <database-type value="POSTGRES" />
           <config-type value="BASIC" />
-          <database-version value="17.0" />
+          <database-version value="9999.0" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
