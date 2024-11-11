@@ -27,7 +27,7 @@ public class Main {
             vuelo.start();
 
             try {
-                Thread.sleep(500);
+                Thread.sleep(random.nextInt(3000) + 1000);
             }
             catch (InterruptedException e) {
                 e.printStackTrace();
