@@ -10,16 +10,19 @@ import java.util.Date;
 public class ServidorStream extends Thread {
     public static final int puerto = 5999;  // El puerto por donde va a escuchar el servidor
     public static Socket socket = null;  // El socket del servidor
+    private static boolean terminarServidor = false;
 
     public ServidorStream(Socket socket) {
         this.socket = socket;
     }
 
     public static void main(String[] args) throws IOException {
+        System.out.println("Arranca el servidor STREAM");
+
         // Creamos el socket del servidor
         ServerSocket socketServidor = new ServerSocket(puerto);
 
-        while (true) {
+        while (!terminarServidor) {
             try {
                 // Esperamos a que un cliente establezca la conexión con el servidor
                 Socket socketClienteNuevo = socketServidor.accept();
@@ -31,11 +34,14 @@ public class ServidorStream extends Thread {
                 e.printStackTrace();
             }
         }
+
+        // Cerramos el socket del servidor
+        if (socketServidor != null && !socketServidor.isClosed()) {
+            socketServidor.close();
+        }
     }
 
     public void run() {
-        Boolean terminarServidor = false;
-
         try {
             // Guardo la IP y el puerto del cliente que envió el mensaje,
             // y los imprimo por pantalla
@@ -56,16 +62,21 @@ public class ServidorStream extends Thread {
 
             while (!terminarServidor) {
                 String mensaje = bufferedReader.readLine();
+                String comando = "";
+                String argumento = "";
 
                 // Cada comando se compone de las 3 primeras letras del mensaje.
                 // Ejemplo: "Nom: Moisés"
                 // "Nom" es el comando
                 // "Moisés" es el argumento
-                String comando = mensaje.substring(0, 3);
-                // @note El comando "Fin" no tiene argumentos
-                String argumento = "";
-                if (!comando.equals("Fin")) {
-                    argumento = mensaje.substring(4, mensaje.length());
+                if (mensaje.length() >= 3) {
+                    comando = mensaje.substring(0, 3);
+                    // @note El comando "Fin" no tiene argumentos
+                    if (!comando.equals("Fin")) {
+                        if (mensaje.length() > 4) {
+                            argumento = mensaje.substring(4, mensaje.length());
+                        }
+                    }
                 }
 
                 switch (comando) {
@@ -81,6 +92,7 @@ public class ServidorStream extends Thread {
                         Date fechaDesconexion = new Date(System.currentTimeMillis());
                         System.out.println("El cliente con IP " + ipCliente + " y puerto " + puertoCliente + " se desconecta. Fecha de desconexión: " + fechaDesconexion);
                         terminarServidor = true;
+                        //socket.close();
                         break;
 
                     default:
@@ -88,8 +100,6 @@ public class ServidorStream extends Thread {
                         break;
                 }
             }
-
-            //socket.close();
         }
         catch (IOException e) {
             throw new RuntimeException(e);

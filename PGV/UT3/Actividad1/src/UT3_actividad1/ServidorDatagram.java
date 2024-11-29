@@ -80,11 +80,17 @@ public class ServidorDatagram extends Thread {
         // Ejemplo: "Nom: Moisés"
         // "Nom" es el comando
         // "Moisés" es el argumento
-        String comando = mensaje.substring(0, 3);
-        // @note El comando "Fin" no tiene argumentos
+        String comando = "";
         String argumento = "";
-        if (!comando.equals("Fin")) {
-            argumento = mensaje.substring(4, mensaje.length());
+
+        if (mensaje.length() >= 3) {
+            comando = mensaje.substring(0, 3);
+            // @note El comando "Fin" no tiene argumentos
+            if (!comando.equals("Fin")) {
+                if (mensaje.length() > 4) {
+                    argumento = mensaje.substring(4, mensaje.length());
+                }
+            }
         }
 
         switch (comando) {

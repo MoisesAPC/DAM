@@ -7,7 +7,8 @@ import java.net.InetAddress;
 import java.util.Scanner;
 
 public class ClienteDatagram {
-    public static final String ipServidor = "192.168.1.72";
+    //public static final String ipServidor = "192.168.1.72";   // IP de casa
+    public static final String ipServidor = "192.168.2.90";     // IP de clase
     public static final int puertoServidor = 5678;
     public static DatagramSocket socketCliente = null;     // El socket del cliente
     public static final int maxDatagramPacketSize = 65507;  // Tamaño máximo de un DatagramPacket
@@ -46,9 +47,11 @@ public class ClienteDatagram {
 
                 // Si el usuario escribe el comando "Fin",
                 // cerramos el cliente
-                String comando = mensaje.substring(0, 3);
-                if (comando.equals("Fin")) {
-                    cerrarCliente = true;
+                if (mensaje.length() >= 3) {
+                    String comando = mensaje.substring(0, 3);
+                    if (comando.equals("Fin")) {
+                        cerrarCliente = true;
+                    }
                 }
             }
 
