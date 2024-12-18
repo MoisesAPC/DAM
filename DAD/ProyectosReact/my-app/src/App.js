@@ -10,14 +10,14 @@ function App() {
         <h1>Mi cabecera h1</h1>
         <p>
           Edit <code>src/App.js</code> and save to reload.
-            <Button
-                role="button"
-                type="submit"
-                variant="outlined"
-            >
-                Botón de enviar de prueba
-            </Button>
         </p>
+        <Button
+          role="button"
+          type="submit"
+          variant="outlined"
+        >
+          Botón de enviar de prueba
+        </Button>
         <a
           className="App-link"
           href="https://reactjs.org"
