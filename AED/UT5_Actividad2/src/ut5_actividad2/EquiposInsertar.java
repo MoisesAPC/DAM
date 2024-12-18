@@ -11,10 +11,10 @@ public class EquiposInsertar {
         // Creamos registros
         Equipos equipo1 = new Equipos("FC Barcelona", "Primera División", 1, "Barcelona, España", "Joan Laporta", 80);
         Equipos equipo2 = new Equipos("Real Madrid", "Primera División", 1, "Madrid, España", "Florentino Pérez", 82);
-        Equipos equipo3 = new Equipos("Manchester United", "Premier League", 2, "Manchester, Inglaterra", "Joel Glazer", 75);
-        Equipos equipo4 = new Equipos("Bayern Munich", "Bundesliga", 2, "Múnich, Alemania", "Herbert Hainer", 85);
-        Equipos equipo5 = new Equipos("Juventus", "Serie A", 3, "Turín, Italia", "Andrea Agnelli", 78);
-        Equipos equipo6 = new Equipos("Paris Saint-Germain", "Ligue 1", 3, "París, Francia", "Nasser Al-Khelaifi", 90);
+        Equipos equipo3 = new Equipos("Getafe", "Premier League", 2, "Manchester, Inglaterra", "Joel Glazer", 75);
+        Equipos equipo4 = new Equipos("Bayern Munich", "alevin", 2, "Múnich, Alemania", "Herbert Hainer", 85);
+        Equipos equipo5 = new Equipos("Juventus", "alevin", 3, "Turín, Italia", "Andrea Agnelli", 78);
+        Equipos equipo6 = new Equipos("Paris Saint-Germain", "alevin", 3, "París, Francia", "Nasser Al-Khelaifi", 90);
 
         // Abre la BD personas, si no existe, la crea
         ObjectContainer db = Db4oEmbedded.openFile(
