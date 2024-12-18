@@ -9,7 +9,7 @@ public class ManipulaDb4o {
 	public static void main(String[] args) {
 			// Abre la BD departamentos, si no existe, la crea
 			ObjectContainer db = Db4oEmbedded.openFile(
-					Db4oEmbedded.newConfiguration(), "bdpersonas.yap");
+					Db4oEmbedded.newConfiguration(), "connections/bdpersonas.yap");
 			
 			//ObjectSet<Personas> p=db.queryByExample(new Personas(0,null,null,null));
 			ObjectSet<Personas> p=db.queryByExample(new Personas());

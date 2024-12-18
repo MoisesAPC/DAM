@@ -16,7 +16,7 @@ public class EjemploDb4o {
 
 		// Abre la BD personas, si no existe, la crea
 		ObjectContainer db = Db4oEmbedded.openFile(
-				Db4oEmbedded.newConfiguration(), "bdpersonas.yap");
+				Db4oEmbedded.newConfiguration(), "connections/bdpersonas.yap");
 
 		db.store(p1);
 		db.store(p2);
