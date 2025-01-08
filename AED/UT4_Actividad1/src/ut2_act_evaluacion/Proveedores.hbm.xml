@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 8 ene 2025, 10:12:46 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ut2_act_evaluacion.Proveedores" optimistic-lock="none" schema="public" table="proveedores">
+        <id name="codProv" type="string">
+            <column length="4" name="cod_prov"/>
+            <generator class="assigned"/>
+        </id>
+        <property name="nombreProv" type="string">
+            <column length="30" name="nombre_prov"/>
+        </property>
+        <property name="direccion" type="string">
+            <column length="30" name="direccion"/>
+        </property>
+        <property name="telefono" type="string">
+            <column length="9" name="telefono"/>
+        </property>
+        <property name="bonifica" type="java.lang.Double">
+            <column name="bonifica" precision="17"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="pedidosPendienteses" table="pedidos_pendientes">
+            <key>
+                <column length="4" name="cod_prov"/>
+            </key>
+            <one-to-many class="ut2_act_evaluacion.PedidosPendientes"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="productoses" table="productos">
+            <key>
+                <column length="4" name="cod_prov"/>
+            </key>
+            <one-to-many class="ut2_act_evaluacion.Productos"/>
+        </set>
+    </class>
+</hibernate-mapping>
