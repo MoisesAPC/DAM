@@ -3,10 +3,9 @@ import { Box, Button } from "@mui/material";
 
 
 function TextBox() {
-    const [bgColor, setBgColor] = useState('rgb(255,255,0)');
-       
-    return( 
-        <div>
+        const [bgColor, setBgColor] = useState('indigo');
+        
+        return <div>
             <Box
                 role = 'caja' 
                 title='es una caja'
@@ -16,11 +15,10 @@ function TextBox() {
             </Box>
             <Button 
                 variant = 'outlined' 
-                onClick={() => setBgColor(bgColor === 'rgb(255,255,0)' ? 'rgb(255,0,0)': 'rgb(255,255,0)')}
+                onClick={() => setBgColor(bgColor === 'indigo' ? 'tomato': 'indigo')}
             > 
                 Pulsa para modificar el color
             </Button>
         </div>
-    )
-}
+    }
 export default TextBox;

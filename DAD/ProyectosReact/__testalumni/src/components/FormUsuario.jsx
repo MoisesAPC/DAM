@@ -11,12 +11,14 @@ import { useState } from "react";
 function FormUsuario () {
 
 const [nombre, setNombre] = useState('')
-
+const [mostrarHeading, setMostrarHeading] = useState(false);
 
 const handleSubmit = (e) => {
   //Para que no mande el formulario, sino que haga lo que yo le diga
   e.preventDefault();
-  //muestro una imagen
+
+  //muestro un heading h3
+  setMostrarHeading(true);
   
   setNombre('')
     
@@ -29,7 +31,7 @@ return <>
             margin: '50px auto'
         }}
         >
-        <h2>Rellena el formulario</h2>
+         <h2>Rellena el formulario</h2>
         <form onSubmit={handleSubmit}>
             <TextField 
                 fullWidth 
@@ -40,9 +42,15 @@ return <>
                 onChange={(event) => {setNombre(event.target.value)}}
                 margin="normal" 
                 role="input" />
-            <Button type="submit" variant="outlined">Submit</Button>
+            <Button
+                role="button"
+                type="submit"
+                variant="outlined"
+            >
+                Enviar
+            </Button>
             
-           
+            {mostrarHeading && <h3>Formulario enviado</h3>}
         </form>
     
     </Box>

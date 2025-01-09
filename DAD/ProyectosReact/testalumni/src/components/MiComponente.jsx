@@ -1,59 +1,33 @@
-export function titleCase(text)
-{
- if (text === '') return '';
+import sum from '../helper/sum'
+import divide from '../helper/divide'
+import titleCase from '../helper/titleCase'
+import isapple from '../helper/isapple'
 
- const arr = text.split(' ');
- const result = [];
- for (let elem of arr){
-    result.push(elem[0].toUpperCase() + elem.substring(1).toLowerCase())
- }
- return result.join(' ');
-}
-
-export function divide(n1, n2)
-{
-    
-    if (!isNaN(n1) && !isNaN(n2))
-    {
-        if (n2 === 0) {
-            return null
-        }
-        return (n1/n2)
-    }
-    else
-    {
-        return (null)
-    
-    }
-    
- 
-}
-
-
-export function sum(n1, n2)
-{
-    if (!isNaN(n1) && !isNaN(n2)){
-    return (n1+n2)
-    }
-    else
-    {
-     return (null)
-    }
-}
-
-export function isapple(fruit){
-
-    if (fruit === 'manzana'){
-        return true
-    }
-    else
-    {
-        return false
-    }
-}
 
 function MiComponente() {
     
-        return <div>Aquí se llamarían a las funciones</div>
+    const ressum = sum(2,3)
+    const resdiv = divide(4,2)
+    const restitleCase = titleCase('Este texto con la primera letra en mayúsculas es así')
+    const resisapple = isapple('manzana')
+    const aString = resisapple.toString()
+    
+    
+
+   
+    
+
+    return(
+        <>
+       <h1>Aquí se llamarían a las funciones en alguna parte del programa</h1>
+       <p> La suma de 2 y 3 es {ressum}</p>
+       <p> La división de 4 y 2 es {resdiv}</p>
+       <p> Este texto con la primera letra en mayúsculas es así: {restitleCase}</p>
+       <p> Manzana es {aString}</p>
+
+       </>
+       
+       
+    ) 
     }
 export default MiComponente;

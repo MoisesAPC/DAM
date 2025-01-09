@@ -4,9 +4,8 @@ import { Box, Button } from "@mui/material";
 
 function TextBox2() {
         
-    const [txtColor, setTxtColor] = useState('rgb(255,192,203)');
-    return (
-        <div>
+        const [txtColor, setTxtColor] = useState('pink');
+        return <div>
             <Box
                 
                 role = 'caja' 
@@ -17,12 +16,11 @@ function TextBox2() {
             </Box>
             <Button 
                 variant = 'outlined' 
-                onClick={() => setTxtColor(txtColor === 'rgb(255,192,203)' ? 'rgb(0,0,0)': 'rgb(255,192,203)')}
+                onClick={() => setTxtColor(txtColor === 'pink' ? 'black': 'pink')}
             > 
                 Pulsa para modificar el color del texto
             </Button>
 
         </div>
-    )
-}
+    }
 export default TextBox2;
