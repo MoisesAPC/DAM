@@ -3,12 +3,11 @@ import { Box, Button } from "@mui/material";
 
 
 function TextBox2() {
-        
     const [txtColor, setTxtColor] = useState('rgb(255,192,203)');
+
     return (
         <div>
             <Box
-                
                 role = 'caja' 
                 title='es una caja'
                 style={{ color: txtColor}}
@@ -21,7 +20,6 @@ function TextBox2() {
             > 
                 Pulsa para modificar el color del texto
             </Button>
-
         </div>
     )
 }

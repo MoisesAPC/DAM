@@ -16,5 +16,10 @@ describe('titleCase', () => {
 
     })
 
-
+    it('si se pasa string vacio, retorna string vacio', () => 
+    {
+        const result = titleCase('');
+        expect(result).toBe('');
+    
+    })
 });
