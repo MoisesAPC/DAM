@@ -1,9 +1,8 @@
-package ut3_actividad_evaluacion;
+package ut3_actividad2;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.*;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -12,16 +11,12 @@ import java.util.Scanner;
  */
 public class Chat extends Thread {
     // Dirección IP del GRUPO. Todos los clientes se conectan a este grupo
-    public static String direccionIPGrupo = "225.10.10.10";
-    public static int puerto = 6998;
+    public static String direccionIPGrupo = "225.1.1.1";
+    public static int puerto = 6999;
+    public static int puertoPrivado = 7668;
     public static MulticastSocket socketMulticast = null;
     public static InetSocketAddress grupo = null;
     public static NetworkInterface netIf = null;
-
-    // Con esta variable nos aseguramos de que solamente un usuario pueda enviar mensajes
-    // Para ello, la hacemos static. Lo ponemos a true de manera que solamente el primer usuario la pueda
-    // poner a false
-    private static Boolean puedeEnviarMensajes = true;
 
     public static String nombre = "";
 
@@ -61,29 +56,16 @@ public class Chat extends Thread {
         System.out.println(nombre + " (" + InetAddress.getLocalHost() + ")" + " se ha unido al grupo");
 
         // Lanzamos ambos hilos, el de enviar datos y el de recibir datos
-        Chat hiloEnviar = null;
-        Chat hiloRecibir = null;
-System.out.println("ANTES: " + puedeEnviarMensajes);
-        // Nos aseguramos de que solamente un usuario (el primero que acceda a esta parte del código)
-        // pueda enviar mensajes (gracias a que "puedeEnviarMensajes" es static)
-        if (puedeEnviarMensajes) {
-            hiloEnviar = new Chat(HILO_TIPO_ENVIAR);
-            hiloEnviar.start();
+        Chat hiloEnviar = new Chat(HILO_TIPO_ENVIAR);
+        Chat hiloRecibir = new Chat(HILO_TIPO_RECIBIR);
 
-            puedeEnviarMensajes = false;
-        }
-System.out.println("DESPUES: " + puedeEnviarMensajes);
-        hiloRecibir = new Chat(HILO_TIPO_RECIBIR);
+        hiloEnviar.start();
         hiloRecibir.start();
 
         // Esperamos a que los hilos terminen
         try {
-            if (hiloEnviar != null) {
-                hiloEnviar.join();
-            }
-            if (hiloRecibir != null) {
-                hiloRecibir.join();
-            }
+            hiloEnviar.join();
+            hiloRecibir.join();
 
             socketMulticast.leaveGroup(grupo, netIf);
             socketMulticast.close();
@@ -128,7 +110,8 @@ System.out.println("DESPUES: " + puedeEnviarMensajes);
             DatagramPacket paquete = new DatagramPacket(bufferMensajeRecibido, bufferMensajeRecibido.length);
             socketMulticast.receive(paquete);
             mensaje = new String(paquete.getData(), 0, paquete.getLength());
-            System.out.println(mensaje);
+
+            manejarMensajesRecibidos(mensaje);
         }
     }
 
@@ -154,6 +137,51 @@ System.out.println("DESPUES: " + puedeEnviarMensajes);
 
             DatagramPacket paquete = new DatagramPacket(mensaje.getBytes(), mensaje.length(), grupo.getAddress(), puerto);
             socketMulticast.send(paquete);
+        }
+    }
+
+    /**
+     * Con este método, manejaremos los mensajes que recibimos en "runRecibir"
+     */
+    private void manejarMensajesRecibidos(String mensaje) throws IOException {
+        // Obtenemos solamente el mensaje del usuario
+        String[] partes = mensaje.split(": ", 2);
+        String nombreUsuario = partes[0].substring(3);  //el substring lo usamos para quitar el "- " (guion y espacio), dejando solamente el nombre de usuario
+        String mensajeRecibido = partes[1];
+
+        if (mensajeRecibido.startsWith("Privado:")) {
+            manejarMensajePrivado(mensajeRecibido);
+        }
+        else if (mensajeRecibido.equalsIgnoreCase("Descargar")) {
+            int x = new Random().nextInt(100) + 1;
+            System.out.println("Se han descargado " + x + " archivos");
+        }
+        else {
+            System.out.println(mensajeRecibido);
+        }
+    }
+
+    private void manejarMensajePrivado(String mensaje) throws IOException {
+        String[] partes = mensaje.split(":", 3);
+        if (partes.length == 3 && partes[1].equals(nombre)) {
+            System.out.println("Mensaje privado recibido: " + partes[2]);
+            enviarRespuestaPrivadaTCP("Ok recibido mensaje privado", partes[1]);
+        }
+    }
+
+    private void enviarRespuestaPrivadaTCP(String respuesta, String destinatario) throws IOException {
+        try {
+            Socket socketTCP = new Socket("localhost", puertoPrivado);
+            OutputStream outputStream = socketTCP.getOutputStream();
+            DataOutputStream dataOut = new DataOutputStream(outputStream);
+
+            dataOut.writeUTF(respuesta);
+            dataOut.flush();
+
+            System.out.println("Respuesta privada enviada a " + destinatario);
+        }
+        catch (IOException e) {
+            System.err.println(e.getMessage());
         }
     }
 }
