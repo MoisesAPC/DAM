@@ -18,6 +18,11 @@ public class Chat extends Thread {
     public static InetSocketAddress grupo = null;
     public static NetworkInterface netIf = null;
 
+    // Con esta variable nos aseguramos de que solamente un usuario pueda enviar mensajes
+    // Para ello, la hacemos static. Lo ponemos a true de manera que solamente el primer usuario la pueda
+    // poner a false
+    private static Boolean puedeEnviarMensajes = true;
+
     public static String nombre = "";
 
     // Con esta variable indico que el cliente está ejecutandose.
@@ -56,16 +61,29 @@ public class Chat extends Thread {
         System.out.println(nombre + " (" + InetAddress.getLocalHost() + ")" + " se ha unido al grupo");
 
         // Lanzamos ambos hilos, el de enviar datos y el de recibir datos
-        Chat hiloEnviar = new Chat(HILO_TIPO_ENVIAR);
-        Chat hiloRecibir = new Chat(HILO_TIPO_RECIBIR);
+        Chat hiloEnviar = null;
+        Chat hiloRecibir = null;
+System.out.println("ANTES: " + puedeEnviarMensajes);
+        // Nos aseguramos de que solamente un usuario (el primero que acceda a esta parte del código)
+        // pueda enviar mensajes (gracias a que "puedeEnviarMensajes" es static)
+        if (puedeEnviarMensajes) {
+            hiloEnviar = new Chat(HILO_TIPO_ENVIAR);
+            hiloEnviar.start();
 
-        hiloEnviar.start();
+            puedeEnviarMensajes = false;
+        }
+System.out.println("DESPUES: " + puedeEnviarMensajes);
+        hiloRecibir = new Chat(HILO_TIPO_RECIBIR);
         hiloRecibir.start();
 
         // Esperamos a que los hilos terminen
         try {
-            hiloEnviar.join();
-            hiloRecibir.join();
+            if (hiloEnviar != null) {
+                hiloEnviar.join();
+            }
+            if (hiloRecibir != null) {
+                hiloRecibir.join();
+            }
 
             socketMulticast.leaveGroup(grupo, netIf);
             socketMulticast.close();
