@@ -10,13 +10,16 @@ import java.util.Scanner;
 
 public class ClienteStream {
     //public static final String ipServidor = "192.168.1.72";   // IP de casa
-    public static final String ipServidor = "192.168.2.90";     // IP de clase
-    public static final int puertoServidor = 5999;
+    public static String ipServidor = "192.168.2.90";     // IP de clase
+    public static int puertoServidor = 5999;
     public static Socket socketCliente = null;     // El socket del cliente
-    public static final String hostname = "localhost";
+    public static String hostname = "localhost";
 
-    public ClienteStream(Socket socketCliente) {
+    public ClienteStream(Socket socketCliente, int puerto, String hostname, String ipServidor) {
         this.socketCliente = socketCliente;
+        this.puertoServidor = puerto;
+        this.hostname = hostname;
+        this.ipServidor = ipServidor;
     }
 
     public static void main(String[] args) {
@@ -27,7 +30,7 @@ public class ClienteStream {
             System.out.println("Arranca cliente");
 
             // Creamos el socket del cliente
-            socketCliente = new Socket();
+            //socketCliente = new Socket();
 
             // Establecemos la conexión
             InetSocketAddress addr = new InetSocketAddress(hostname, puertoServidor);
@@ -38,7 +41,7 @@ public class ClienteStream {
 
             while (!cerrarCliente) {
                 // Escribimos el mensaje que le vamos a enviar al servidor
-                System.out.print("Mensaje: ");
+                System.out.print("Mensaje privado: ");
                 String mensaje = teclado.nextLine();
 
                 // Escribimos los datos en el outputStream.

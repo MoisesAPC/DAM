@@ -1,5 +1,8 @@
 package ut3_actividad2;
 
+import ut3_actividad_evaluacion.ClienteStream;
+import ut3_actividad_evaluacion.ServidorStream;
+
 import java.io.*;
 import java.net.*;
 import java.util.Random;
@@ -12,6 +15,8 @@ import java.util.Scanner;
 public class Chat extends Thread {
     // Dirección IP del GRUPO. Todos los clientes se conectan a este grupo
     public static String direccionIPGrupo = "225.1.1.1";
+    public static final String ipPrivada = "192.168.1.72";   // IP de casa
+    //public static final String ipPrivada = "192.168.2.90";     // IP de clase
     public static int puerto = 6999;
     public static int puertoPrivado = 7668;
     public static MulticastSocket socketMulticast = null;
@@ -19,6 +24,8 @@ public class Chat extends Thread {
     public static NetworkInterface netIf = null;
 
     public static String nombre = "";
+
+    private static ServidorStream servidorPrivado = null;
 
     // Con esta variable indico que el cliente está ejecutandose.
     // Si se pone a false, el cliente se desconecta
@@ -61,6 +68,14 @@ public class Chat extends Thread {
 
         hiloEnviar.start();
         hiloRecibir.start();
+
+        // Arrancamos el servidor usado para los mensajes privados
+        ServerSocket socketServidor = new ServerSocket(puerto);
+        // Esperamos a que un cliente establezca la conexión con el servidor
+        Socket socketClienteNuevo = socketServidor.accept();
+
+        servidorPrivado = new ServidorStream(socketClienteNuevo);
+        servidorPrivado.start();
 
         // Esperamos a que los hilos terminen
         try {
@@ -150,42 +165,25 @@ public class Chat extends Thread {
         String mensajeRecibido = partes[1];
 
         if (mensajeRecibido.startsWith("Privado:")) {
-            manejarEnviarMensajePrivado(mensajeRecibido);
+            crearClienteTCPMensajePrivado(mensajeRecibido);
         }
         else if (mensajeRecibido.equalsIgnoreCase("Descargar")) {
             int x = new Random().nextInt(100) + 1;
             System.out.println("Se han descargado " + x + " archivos");
         }
         else {
-            System.out.println(mensajeRecibido);
+            System.out.println(mensaje);
         }
     }
 
-    private void manejarEnviarMensajePrivado(String mensaje) throws IOException {
-        //obtenemos el mensaje en si (el tercer String separado por los ":")
+    private void crearClienteTCPMensajePrivado(String mensaje) throws IOException {
         String[] partes = mensaje.split(":", 3);
         String nombreUsuario = partes[1];
         String mensajeRecibido = partes[2];
 
         if (partes.length == 3) {
-            System.out.println("Mensaje privado recibido: " + mensajeRecibido);
-            enviarRespuestaPrivadaTCP("Ok recibido mensaje privado", nombreUsuario);
-        }
-    }
-
-    private void enviarRespuestaPrivadaTCP(String respuesta, String destinatario) throws IOException {
-        try {
-            Socket socketTCP = new Socket("localhost", puertoPrivado);
-            OutputStream outputStream = socketTCP.getOutputStream();
-            DataOutputStream dataOut = new DataOutputStream(outputStream);
-
-            dataOut.writeUTF(respuesta);
-            dataOut.flush();
-
-            System.out.println("Respuesta privada enviada a " + destinatario);
-        }
-        catch (IOException e) {
-            System.err.println(e.getMessage());
+            ClienteStream cliente = new ClienteStream(new Socket(), puertoPrivado, "localhost", ipPrivada);
+            cliente.main(null);
         }
     }
 }
