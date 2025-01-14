@@ -150,7 +150,7 @@ public class Chat extends Thread {
         String mensajeRecibido = partes[1];
 
         if (mensajeRecibido.startsWith("Privado:")) {
-            manejarMensajePrivado(mensajeRecibido);
+            manejarEnviarMensajePrivado(mensajeRecibido);
         }
         else if (mensajeRecibido.equalsIgnoreCase("Descargar")) {
             int x = new Random().nextInt(100) + 1;
@@ -161,11 +161,15 @@ public class Chat extends Thread {
         }
     }
 
-    private void manejarMensajePrivado(String mensaje) throws IOException {
+    private void manejarEnviarMensajePrivado(String mensaje) throws IOException {
+        //obtenemos el mensaje en si (el tercer String separado por los ":")
         String[] partes = mensaje.split(":", 3);
-        if (partes.length == 3 && partes[1].equals(nombre)) {
-            System.out.println("Mensaje privado recibido: " + partes[2]);
-            enviarRespuestaPrivadaTCP("Ok recibido mensaje privado", partes[1]);
+        String nombreUsuario = partes[1];
+        String mensajeRecibido = partes[2];
+
+        if (partes.length == 3) {
+            System.out.println("Mensaje privado recibido: " + mensajeRecibido);
+            enviarRespuestaPrivadaTCP("Ok recibido mensaje privado", nombreUsuario);
         }
     }
 
