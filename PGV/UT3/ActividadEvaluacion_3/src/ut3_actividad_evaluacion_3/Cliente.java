@@ -10,7 +10,8 @@ import java.util.Scanner;
 public class Cliente extends Thread {
     public static String direccionIPGrupo = "225.10.10.10";
     public static String direccionIPPrivada = "192.168.0.23";
-    public static int puerto = 6998;
+    public static int puertoPublico = 6998;
+    public static int puertoPrivado = 7668;
     public static MulticastSocket socketMulticast = null;
     public static InetSocketAddress grupo = null;
     public static NetworkInterface netIf = null;
@@ -39,24 +40,24 @@ public class Cliente extends Thread {
             enEjecucion = true;
             pedirNombre();
 
-            socketMulticast = new MulticastSocket(puerto);
+            socketMulticast = new MulticastSocket(puertoPublico);
             InetAddress dir = InetAddress.getByName(direccionIPGrupo);
-            grupo = new InetSocketAddress(dir, puerto);
+            grupo = new InetSocketAddress(dir, puertoPublico);
             netIf = NetworkInterface.getByInetAddress(dir);
             socketMulticast.joinGroup(grupo, netIf);
 
-            Cliente enviarC = new Cliente(enviar);
-            Cliente recibirC = new Cliente(recibir);
-            Cliente privadoC = new Cliente(privado);
+            Cliente hiloEnviar = new Cliente(enviar);
+            Cliente hiloRecibir = new Cliente(recibir);
+            Cliente hiloPrivado = new Cliente(privado);
 
-            enviarC.start();
-            recibirC.start();
-            privadoC.start();
+            hiloEnviar.start();
+            hiloRecibir.start();
+            hiloPrivado.start();
 
             // Esperamos a que terminen los hilos antes de terminar el programa
-            enviarC.join();
-            recibirC.join();
-            privadoC.join();
+            hiloEnviar.join();
+            hiloRecibir.join();
+            hiloPrivado.join();
 
             socketMulticast.leaveGroup(grupo, netIf);
             socketMulticast.close();
@@ -94,6 +95,9 @@ public class Cliente extends Thread {
         }
     }
 
+    /**
+     * Recibe mensajes del grupo
+     */
     private void runRecibir() {
         final int tamanoBufferMensaje = 1000;
         String mensaje;
@@ -112,37 +116,49 @@ public class Cliente extends Thread {
         }
     }
 
+    /**
+     * Envía mensajes al grupo
+     */
     private void runEnviar() {
         String mensaje;
 
         try {
             mensaje = "Se ha conectado " + nombre;
-            DatagramPacket paquete = new DatagramPacket(mensaje.getBytes(), mensaje.length(), grupo.getAddress(), puerto);
+            DatagramPacket paquete = new DatagramPacket(mensaje.getBytes(), mensaje.length(), grupo.getAddress(), puertoPublico);
             socketMulticast.send(paquete);
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Esta función permite el recibimiento de mensajes privados enviados por "Admin"
+     */
     private void mensajePrivado() {
+        final int tamanoBufferMensaje = 1000;
+
         try {
             DatagramSocket datagramSocket = new DatagramSocket();
-            InetAddress dirservidor = InetAddress.getByName(direccionIPPrivada);
+            InetAddress dirPrivado = InetAddress.getByName(direccionIPPrivada);
 
-            String mensaje = new String("Nombre:"+nombre);
-            DatagramPacket datagrama1 = new DatagramPacket(mensaje.getBytes(), mensaje.getBytes().length, dirservidor, 7668);
-            datagramSocket.send(datagrama1);
+            String mensaje = new String("Nombre: " + nombre);
+            DatagramPacket datagramaNombre = new DatagramPacket(mensaje.getBytes(), mensaje.getBytes().length, dirPrivado, puertoPrivado);
+            datagramSocket.send(datagramaNombre);
 
             while (true) {
-                byte[] respuesta = new byte[100];
-                DatagramPacket datagrama2 = new DatagramPacket(respuesta, respuesta.length);
-                datagramSocket.receive(datagrama2);
-                System.out.println("Mensaje privado: " + new String(respuesta,0,datagrama2.getLength()));
+                byte[] respuesta = new byte[tamanoBufferMensaje];
+                DatagramPacket datagramaMensajePrivado = new DatagramPacket(respuesta, respuesta.length);
+                datagramSocket.receive(datagramaMensajePrivado);
 
-                String mensaje2= "Ok recibido mensaje privado";
-                DatagramPacket datagrama3 = new DatagramPacket(mensaje2.getBytes(), mensaje2.getBytes().length, dirservidor, 7668);
-                datagramSocket.send(datagrama3);
-                if (respuesta.equals("FIN")) {
+                String respuestaString = new String(respuesta,0, datagramaMensajePrivado.getLength());
+                System.out.println("Mensaje privado: " + respuestaString);
+                String mensajeConfirmacion = "Ok recibido mensaje privado";
+                DatagramPacket datagramaMensajeConfirmacion = new DatagramPacket(mensajeConfirmacion.getBytes(), mensajeConfirmacion.getBytes().length, dirPrivado, puertoPrivado);
+                datagramSocket.send(datagramaMensajeConfirmacion);
+
+                // "FIN" es la palabra clave con la que el cliente se cerrará
+                if (respuestaString.equalsIgnoreCase("FIN_CLIENTE")) {
                     break;
                 }
             }
