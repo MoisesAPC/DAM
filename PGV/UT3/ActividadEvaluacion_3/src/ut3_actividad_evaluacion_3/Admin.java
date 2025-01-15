@@ -43,7 +43,7 @@ public class Admin extends Thread {
 
     private static void pedirNombre() {
         Scanner name = new Scanner(System.in);
-        System.out.print("Escribe de nombre: ");
+        System.out.print("Escribe el nombre: ");
         nombre = name.nextLine();
     }
 
@@ -128,7 +128,6 @@ public class Admin extends Thread {
 
         while (enEjecucion) {
             try {
-                // No podemos tener 9999 usuarios conectados, sino, daría error.
                 System.out.println("Mensaje a enviar: ");
                 mensaje = bufferedReader.readLine();
                 String[] msg =  mensaje.split(":");
@@ -156,7 +155,7 @@ public class Admin extends Thread {
                 if (comando.equals("Privado")) {
                     int x = obtenerIndiceDeCliente(nombre_usuario);
 
-                    if (x == 9999) {
+                    if (x == -1) {
                         System.out.println("Persona no encontrada");
                     }
                     else {
@@ -187,7 +186,12 @@ public class Admin extends Thread {
     }
 
     /**
-     * Esta función permite el envío de mensajes privados
+     * Esta función escucha al principio cuando se une el cliente.
+     * Cuando se une el cliente, dicho cliente manda el mensaje "Nombre: nombre_cliente"
+     * (dicho mensaje se guarda en "datagramaReciboPaqueteInicioUsuario" en esta función)
+     *
+     * Esta función se encarga de recibir dicho mensaje y, con los datos del paquete, rellenar los
+     * arrays de nombre, IP y Puerto, para que después lo podamos usar en la conexión privada
      */
     private void privadoDatagram() {
         try {
@@ -199,27 +203,27 @@ public class Admin extends Thread {
 
         while (datagramSocket != null) {
             final int tamanoBufferMensaje = 1000;
+            final String mensajeConfirmacion = "Ok recibido mensaje privado";
 
             try {
                 byte[] entrada = new byte[tamanoBufferMensaje];
-                DatagramPacket datagrama1 = new DatagramPacket(entrada, entrada.length);
-                datagramSocket.receive(datagrama1);
+                DatagramPacket datagramaReciboPaqueteInicioUsuario = new DatagramPacket(entrada, entrada.length);
+                datagramSocket.receive(datagramaReciboPaqueteInicioUsuario);
 
-                String mensaje = new String(datagrama1.getData(), 0, datagrama1.getLength());
-                InetAddress dirCliente = datagrama1.getAddress();
-                int puertoCliente = datagrama1.getPort();
+                String mensaje = new String(datagramaReciboPaqueteInicioUsuario.getData(), 0, datagramaReciboPaqueteInicioUsuario.getLength());
+                InetAddress dirCliente = datagramaReciboPaqueteInicioUsuario.getAddress();
+                int puertoCliente = datagramaReciboPaqueteInicioUsuario.getPort();
 
-                String[] comprobacion = mensaje.split(" ");
-                String[] msg = mensaje.split(":");
-                // El cliente solo puede enviar 2 mensajes por privado uno es el nombre y el otro confirmación de mensaje privado
-                if (comprobacion[0].equals("Ok")) {
+                if (mensaje.equals(mensajeConfirmacion)) {
                     System.out.println(mensaje);
                 }
                 else {
-                    // Añadimos al array para buscar el puerto de cada cliente
+                    String[] msg = mensaje.split(":");
+                    String nombreCliente = msg[1].trim();
+
                     arrayInetAddress.add(dirCliente);
                     arrayPuertos.add(puertoCliente);
-                    arrayNombres.add(msg[1]);
+                    arrayNombres.add(nombreCliente);
                 }
             }
             catch (IOException e) {
@@ -230,7 +234,8 @@ public class Admin extends Thread {
     }
 
     /**
-     * Obtiene el índice del cliente en el array "arrayNombres" según su nombre
+     * Obtiene el índice del cliente en el array "arrayNombres" según su nombre.
+     * Retorna -1 en caso de no ser encontrado.
      */
     private static int obtenerIndiceDeCliente(String nombreUser) {
         for (int i = 0; i < arrayNombres.size(); i++) {
@@ -238,6 +243,6 @@ public class Admin extends Thread {
                 return i;
             }
         }
-        return 9999;
+        return -1;
     }
 }

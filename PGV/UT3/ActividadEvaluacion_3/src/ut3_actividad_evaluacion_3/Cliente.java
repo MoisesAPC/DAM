@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class Cliente extends Thread {
     public static String direccionIPGrupo = "225.10.10.10";
-    public static String direccionIPPrivada = "192.168.0.23";
+    public static String direccionIPPrivada = "192.168.1.71";
     public static int puertoPublico = 6998;
     public static int puertoPrivado = 7668;
     public static MulticastSocket socketMulticast = null;
@@ -82,7 +82,7 @@ public class Cliente extends Thread {
         switch (tipoHilo) {
             case enviar:
                 runEnviar();
-                mensajePrivado();
+                //mensajePrivado();
                 break;
 
             case recibir:
@@ -139,6 +139,10 @@ public class Cliente extends Thread {
         final int tamanoBufferMensaje = 1000;
 
         try {
+            /**
+             * Enviamos los datos del cliente al administrador una sola vez cuando se conecte al grupo
+             * para que el Admin pueda obtener los datos necesarios para realizar conexiones privadas.
+             */
             DatagramSocket datagramSocket = new DatagramSocket();
             InetAddress dirPrivado = InetAddress.getByName(direccionIPPrivada);
 
@@ -153,7 +157,7 @@ public class Cliente extends Thread {
 
                 String respuestaString = new String(respuesta,0, datagramaMensajePrivado.getLength());
                 System.out.println("Mensaje privado: " + respuestaString);
-                String mensajeConfirmacion = "Ok recibido mensaje privado";
+                final String mensajeConfirmacion = "Ok recibido mensaje privado";
                 DatagramPacket datagramaMensajeConfirmacion = new DatagramPacket(mensajeConfirmacion.getBytes(), mensajeConfirmacion.getBytes().length, dirPrivado, puertoPrivado);
                 datagramSocket.send(datagramaMensajeConfirmacion);
 
