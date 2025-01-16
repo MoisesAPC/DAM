@@ -1,4 +1,4 @@
-package prog;
+package ut4_actividad3;
 
 import java.util.Iterator;
 import java.util.List;

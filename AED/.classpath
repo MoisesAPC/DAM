@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="AED_actividad1/src"/>
+	<classpathentry kind="src" path="prueba1/src"/>
+	<classpathentry kind="src" path="RandomAccessFile_prueba1/src"/>
+	<classpathentry kind="src" path="RandomAcessFile_prueba2/src"/>
+	<classpathentry kind="src" path="UT1_Examen/src"/>
+	<classpathentry kind="src" path="UT1_ManejoDeFicheros/src"/>
+	<classpathentry kind="src" path="UT2_chuletas_y_ejemplos/Actividad1/src"/>
+	<classpathentry kind="src" path="UT2_chuletas_y_ejemplos/Actividad2/src"/>
+	<classpathentry kind="src" path="UT2_chuletas_y_ejemplos/Actividad3/src"/>
+	<classpathentry kind="src" path="UT2_chuletas_y_ejemplos/UT2_Examen/src"/>
+	<classpathentry kind="src" path="UT2_chuletas_y_ejemplos/UT2ActividadEvaluacion/src"/>
+	<classpathentry kind="src" path="UT3_ActividadEvaluacion_ExistDB/src"/>
+	<classpathentry kind="src" path="UT4_Actividad1/src"/>
+	<classpathentry kind="src" path="UT4_Actividad2/src"/>
+	<classpathentry kind="src" path="UT5_Actividad1_Eclipse/src"/>
+	<classpathentry kind="src" path="UT5_Actividad1/src"/>
+	<classpathentry kind="src" path="UT5_Actividad2/src"/>
+	<classpathentry kind="src" path="UT5_Examen/src"/>
+	<classpathentry kind="lib" path="RandomAccessFile_prueba1/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="lib" path="UT1_ManejoDeFicheros/lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="UT2_chuletas_y_ejemplos/Actividad1/drivers/sqlite-jdbc-3.20.1.jar"/>
+	<classpathentry kind="lib" path="UT2_chuletas_y_ejemplos/Actividad2/driver/postgresql-42.7.4.jar"/>
+	<classpathentry kind="lib" path="UT2_chuletas_y_ejemplos/Actividad3/drivers/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="UT2_chuletas_y_ejemplos/UT2_Examen/driver/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="UT2_chuletas_y_ejemplos/UT2ActividadEvaluacion/driver/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="UT2_chuletas_y_ejemplos/UT2ActividadEvaluacion/driver/postgresql-42.7.4.jar"/>
+	<classpathentry kind="lib" path="UT4_Actividad1/driver/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="UT4_Actividad1/driver/postgresql-42.7.4.jar"/>
+	<classpathentry kind="lib" path="UT5_Actividad1_Eclipse/lib/db4o-8.0.249.16098-core-java5.jar"/>
+	<classpathentry kind="lib" path="UT5_Actividad1/lib/db4o-8.0.249.16098-core-java5.jar"/>
+	<classpathentry kind="lib" path="UT5_Actividad2/lib/db4o-8.0.249.16098-core-java5.jar"/>
+	<classpathentry kind="lib" path="UT5_Examen/lib/db4o-8.0.249.16098-core-java5.jar"/>
+	<classpathentry kind="output" path="AED_actividad1/bin"/>
+</classpath>

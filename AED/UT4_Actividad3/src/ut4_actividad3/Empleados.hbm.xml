@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 15 ene 2025, 23:31:35 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ut4_actividad3.Empleados" optimistic-lock="none" schema="public" table="empleados">
+        <composite-id class="ut4_actividad3.EmpleadosId" name="id">
+            <key-property name="cargo" type="string">
+                <column length="100" name="cargo"/>
+            </key-property>
+            <key-property name="deptno" type="java.lang.Integer">
+                <column name="deptno"/>
+            </key-property>
+            <key-property name="ofi" type="string">
+                <column length="100" name="ofi"/>
+            </key-property>
+            <key-property name="salario" type="java.lang.Double">
+                <column name="salario" precision="17"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="ut4_actividad3.Departamentos" fetch="select" insert="false" name="departamentos" update="false">
+            <column name="deptno"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
