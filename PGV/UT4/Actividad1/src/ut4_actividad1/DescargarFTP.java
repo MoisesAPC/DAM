@@ -10,9 +10,10 @@ import org.apache.commons.net.ftp.FTPReply;
 
 public class DescargarFTP {
 
-	final static String SITE = "192.168.11.75"; //Con el filezilla en pc profe
-	final static String USER = "pgv";
-	final static String PASSW = "pgv";
+	//final static String SITE = "192.168.11.75"; //Con el filezilla en pc profe
+	final static String SITE = "ftp.nluug.nl";
+	final static String USER = "anonymous";
+	final static String PASSW = "";
 
 	public static void main(String[] args) {
 
