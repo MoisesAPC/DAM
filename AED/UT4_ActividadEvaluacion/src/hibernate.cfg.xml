@@ -10,6 +10,7 @@
         <property name="hibernate.hbm2ddl.auto">none</property>
         <property name="hibernate.search.autoregister_listeners">true</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
-        <mapping resource="ut4_actividadevaluacion/Departamentos.hbm.xml"/>
+        <mapping resource="ut4_actividadevaluacion/Oficinas.hbm.xml"/>
+        <mapping resource="ut4_actividadevaluacion/Empleados.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
