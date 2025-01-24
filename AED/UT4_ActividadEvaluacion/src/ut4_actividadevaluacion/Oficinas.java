@@ -22,7 +22,7 @@ public class Oficinas implements java.io.Serializable {
 		this.codOfi = codOfi;
 	}
 
-	public Oficinas(String codOfi, String nombre, String direccion, String localidad, Set empleadoses) {
+	public Oficinas(String codOfi, String nombre, String direccion, String localidad) {
 		this.codOfi = codOfi;
 		this.nombre = nombre;
 		this.direccion = direccion;
