@@ -1,0 +1,37 @@
+--- PostgreSQL ---
+-- Create Oficinas table
+CREATE TABLE Oficinas (
+    cod_ofi VARCHAR(255) PRIMARY KEY,
+    nombre VARCHAR(255),
+    direccion VARCHAR(255),
+    localidad VARCHAR(255)
+);
+
+-- Create Empleados table
+CREATE TABLE Empleados (
+    nif VARCHAR(255) PRIMARY KEY,
+    nombre VARCHAR(255),
+    direccion VARCHAR(255),
+    cargo VARCHAR(255),
+    cod_ofi VARCHAR(255),
+    FOREIGN KEY (cod_ofi) REFERENCES Oficinas(cod_ofi)
+);
+
+--- Oracle 11g ---
+-- Create Oficinas table
+CREATE TABLE Oficinas (
+    cod_ofi VARCHAR2(255) PRIMARY KEY,
+    nombre VARCHAR2(255),
+    direccion VARCHAR2(255),
+    localidad VARCHAR2(255)
+);
+
+-- Create Empleados table
+CREATE TABLE Empleados (
+    nif VARCHAR2(255) PRIMARY KEY,
+    nombre VARCHAR2(255),
+    direccion VARCHAR2(255),
+    cargo VARCHAR2(255),
+    cod_ofi VARCHAR2(255),
+    CONSTRAINT fk_cod_ofi FOREIGN KEY (cod_ofi) REFERENCES Oficinas(cod_ofi)
+);
