@@ -16,52 +16,54 @@ public class DescargarFTP {
 	final static String PASSW = "";
 
 	public static void main(String[] args) {
+		// Intentamos conexión FTP con el usuario "USER"
 
-		// Intentamos conexión ftp anónima
-
-		FTPClient ftpclient = new FTPClient();
+		FTPClient ftpClient = new FTPClient();
 		try {
-			
-			ftpclient.connect(SITE);
+			// Nos conectamos
+			ftpClient.connect(SITE);
 
-			if (FTPReply.isPositiveCompletion(ftpclient.getReplyCode())) {
-				System.out.println(ftpclient.getReplyString());
-				if (ftpclient.login(USER, PASSW)) {
-					ListFiles(ftpclient);
-					Descarga(ftpclient);
-				} else {
+			if (FTPReply.isPositiveCompletion(ftpClient.getReplyCode())) {
+				System.out.println(ftpClient.getReplyString());
+
+				// Hacemos el login con el usuario cliente
+				if (ftpClient.login(USER, PASSW)) {
+					// Listamos los ficheros y descargarlos
+					ListFiles(ftpClient);
+					Descarga(ftpClient);
+				}
+				else {
 					System.out.println("Usuario incorrecto");
 				}
-			} else {
-				System.out.println("Error de acceso, desconectamos");
-				ftpclient.disconnect();
 			}
-		} catch (IOException e) {
-			// mensaje error E/S, gestionar
+			else {
+				System.out.println("Error de acceso, desconectamos");
+				ftpClient.disconnect();
+			}
 		}
-
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	//Para descargar SOLO ficheros en este ejemplo
-
+	// Para descargar SOLO ficheros en este ejemplo
 	private static void Descarga(FTPClient ftpclient)throws IOException {
+		BufferedOutputStream bufferedOutputStream;
+		FTPFile[] remoteFiles = ftpclient.listFiles();
 
-		BufferedOutputStream bo;
-
-		FTPFile[] remotefiles = ftpclient.listFiles();
-
-		for (FTPFile f : remotefiles) {
-			if (f.isFile()) {
-				bo = new BufferedOutputStream(new FileOutputStream("./archivos/"+f.getName()));
-				if (ftpclient.retrieveFile(f.getName(), bo))
-					System.out.println("Descarga de " + f.getName()
-							+ " correcta");
-				else
-					System.err.println("Descarga de " + f.getName()
-							+ " incorrecta");
+		for (FTPFile file : remoteFiles) {
+			if (file.isFile()) {
+				// Asegurarse de que los nombres de archivos sean válidos en el sistema operativo local
+				String safeFileName = file.getName().replaceAll("[^a-zA-Z0-9\\.\\-_]", "_");
+				bufferedOutputStream = new BufferedOutputStream(new FileOutputStream("./archivos/" + safeFileName));
+				if (ftpclient.retrieveFile(file.getName(), bufferedOutputStream)) {
+					System.out.println("Descarga de " + file.getName() + " correcta");
+				}
+				else {
+					System.err.println("Descarga de " + file.getName() + " incorrecta");
+				}
 			}
 		}
-
 	}
 
 	// Para obtener info de archivos y directorios
@@ -71,8 +73,7 @@ public class DescargarFTP {
 
 		FTPFile[] remotefiles = ftpclient.listFiles();
 
-		System.out.println("Se han encontrado " + remotefiles.length
-				+ " ficheros/directorios");
+		System.out.println("Se han encontrado " + remotefiles.length + " ficheros/directorios");
 		for (FTPFile f : remotefiles) {
 			System.out.println(f);
 			// O con métodos...
