@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 8 ene 2025, 10:12:46 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ut2_act_evaluacion.Productos" optimistic-lock="none" schema="public" table="productos">
+        <id name="codProd" type="string">
+            <column length="5" name="cod_prod"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="ut2_act_evaluacion.Proveedores" fetch="select" name="proveedores">
+            <column length="4" name="cod_prov"/>
+        </many-to-one>
+        <property name="nombreProd" type="string">
+            <column length="30" name="nombre_prod"/>
+        </property>
+        <property name="precio" type="java.lang.Double">
+            <column name="precio" precision="17"/>
+        </property>
+        <property name="stock" type="java.lang.Integer">
+            <column name="stock"/>
+        </property>
+    </class>
+</hibernate-mapping>

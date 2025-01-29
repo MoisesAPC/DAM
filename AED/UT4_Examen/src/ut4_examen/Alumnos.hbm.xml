@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 29 ene 2025, 8:54:11 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ut4_examen.Alumnos" optimistic-lock="none" schema="public" table="alumnos">
+        <id name="nif" type="string">
+            <column length="9" name="nif"/>
+            <generator class="assigned"/>
+        </id>
+        <property name="nombre" type="string">
+            <column length="40" name="nombre"/>
+        </property>
+        <property name="cial" type="string">
+            <column length="10" name="cial"/>
+        </property>
+        <property name="telefono" type="string">
+            <column length="9" name="telefono"/>
+        </property>
+    </class>
+</hibernate-mapping>

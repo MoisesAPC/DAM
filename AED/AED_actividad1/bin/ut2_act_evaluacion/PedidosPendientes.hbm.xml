@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 8 ene 2025, 10:12:46 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ut2_act_evaluacion.PedidosPendientes" optimistic-lock="none" schema="public" table="pedidos_pendientes">
+        <composite-id class="ut2_act_evaluacion.PedidosPendientesId" name="id">
+            <key-property name="codProv" type="string">
+                <column length="4" name="cod_prov"/>
+            </key-property>
+            <key-property name="fechaModificacion" type="date">
+                <column length="13" name="fecha_modificacion"/>
+            </key-property>
+            <key-property name="stock" type="java.lang.Integer">
+                <column name="stock"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="ut2_act_evaluacion.Proveedores" fetch="select" insert="false" name="proveedores" update="false">
+            <column length="4" name="cod_prov"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
