@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 28 ene 2025, 21:18:08 by Hibernate Tools 5.4.33.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ORACLE.Oficinas" optimistic-lock="none" table="OFICINAS">
+        <id name="codOfi" type="string">
+            <column length="2" name="COD_OFI"/>
+            <generator class="assigned"/>
+        </id>
+        <property name="nombre" type="string">
+            <column length="20" name="NOMBRE"/>
+        </property>
+        <property name="dirección" type="string">
+            <column length="30" name="DIRECCIÓN"/>
+        </property>
+        <property name="localidad" type="string">
+            <column length="20" name="LOCALIDAD"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="empleadoses" table="EMPLEADOS">
+            <key>
+                <column length="2" name="COD_OFI"/>
+            </key>
+            <one-to-many class="ORACLE.Empleados"/>
+        </set>
+    </class>
+</hibernate-mapping>

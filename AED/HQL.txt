@@ -1,0 +1,78 @@
+SELECT: Permite seleccionar objetos o propiedades específicas.
+text
+SELECT e.name, e.salary FROM Employee e WHERE e.department = 'Sales'
+FROM: Especifica la entidad de la que se quiere obtener datos.
+text
+FROM Employee WHERE salary > 50000
+WHERE: Filtra los resultados basados en condiciones específicas.
+text
+FROM Employee e WHERE e.id = 100
+ORDER BY: Ordena los resultados de la consulta.
+text
+FROM Person P WHERE P.id > 10 ORDER BY P.salary DESC
+JOIN: Permite combinar datos de múltiples entidades relacionadas.
+text
+FROM Employee e INNER JOIN e.department d
+GROUP BY: Agrupa los resultados basados en una o más propiedades.
+text
+SELECT e.department, count(e) FROM Employee e GROUP BY e.department
+UPDATE: Actualiza registros en la base de datos.
+text
+UPDATE Employee SET salary = 60000 WHERE id = 1
+DELETE: Elimina registros de la base de datos.
+text
+DELETE FROM Employee WHERE id = 1
+
+
+-----------------------------------------------------------------
+
+Consulta con JOIN y condiciones múltiples:
+text
+FROM Pedido p 
+JOIN p.cliente c 
+JOIN p.productos prod 
+WHERE c.ciudad = 'Madrid' 
+AND prod.categoria = 'Electrónica' 
+AND p.fecha > '2024-01-01'
+Consulta con funciones de agregación y GROUP BY:
+text
+SELECT d.nombre, AVG(e.salario) as salarioPromedio, COUNT(e) as numEmpleados
+FROM Departamento d 
+JOIN d.empleados e 
+GROUP BY d.nombre 
+HAVING AVG(e.salario) > 50000
+Consulta con subconsulta en la cláusula WHERE:
+text
+FROM Producto p 
+WHERE p.precio > (
+    SELECT AVG(precio) 
+    FROM Producto 
+    WHERE categoria = p.categoria
+)
+Actualización masiva basada en una subconsulta:
+text
+UPDATE Usuario u 
+SET u.estatus = 'INACTIVO' 
+WHERE u.id IN (
+    SELECT c.usuario.id 
+    FROM Compra c 
+    GROUP BY c.usuario.id 
+    HAVING MAX(c.fecha) < '2024-01-01'
+)
+Consulta con ORDER BY y paginación:
+text
+FROM Articulo a 
+WHERE a.autor.pais = 'España' 
+ORDER BY a.fechaPublicacion DESC
+Luego, en el código Java:
+java
+Query query = session.createQuery(hql);
+query.setFirstResult(0);
+query.setMaxResults(10);
+List<Articulo> articulos = query.list();
+Consulta utilizando funciones de fecha:
+text
+SELECT c.cliente, SUM(c.total) as ventasTotales
+FROM Compra c 
+WHERE YEAR(c.fecha) = 2024 AND MONTH(c.fecha) = 1
+GROUP BY c.cliente
