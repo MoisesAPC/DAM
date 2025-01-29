@@ -12,7 +12,7 @@ public class SubirFtp {
 	final static String SITE = "localhost";	// También se pueden poner la IP
 	final static String USER = "anonymous";
 	final static String PASSW = "";
-	final static String directorioEnRemoto = "/ftp";	// Directorio en remoto donde se alojarán los archivos
+	final static String directorioEnRemoto = "/";	// Directorio en remoto donde se alojarán los archivos
 
 	public static void main(String[] args) throws IOException {
 		FTPClient ftpClient = new FTPClient();
@@ -29,7 +29,7 @@ public class SubirFtp {
 				System.out.println("-- ANTES --");
 				ListFiles(ftpClient);
 
-				Subir(ftpClient, "./archivos/prueba.txt");
+				Subir(ftpClient, "./archivos/prueba.txt", "ftp/hola");
 				SubirRecursivo(ftpClient, new File("./archivos/"), directorioEnRemoto);
 
 				System.out.println("-- DESPUÉS --");
@@ -48,18 +48,41 @@ public class SubirFtp {
 		ftpClient.disconnect();
 	}
 
-	private static void Subir(FTPClient ftpClient, String ficheroLocal) throws IOException {
-		// Stream para subir archivos
-		BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(ficheroLocal));
+	/**
+	 * Sube un único fichero (guardado en "ficheroLocal") al servidor, en la ruta remote "directorioRemoto"
+	 */
+	private static void Subir(FTPClient ftpClient, String ficheroLocal, String directorioRemoto) throws IOException {
+		File localFile = new File(ficheroLocal);
+		String nombreFicheroRemoto = localFile.getName();
+		String rutaCompletaRemota = directorioRemoto + "/" + nombreFicheroRemoto;
 
-		// Necesario para que los archivos se descarguen bien (de tipo binario) (ponerlo ANTES de descargar / subir archivos)
-		ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
-		ftpClient.storeFile(ficheroLocal, bufferedInputStream);
+		try {
+			BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(localFile));
 
-		// Cerramos el BufferedInputStream después de cada descarga
-		// Necesario para que los ficheros descargados NO estén vacíos
-		if (bufferedInputStream != null) {
-			bufferedInputStream.close();
+			ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+
+			//nos aseguramos de que el directorio existe en remoto
+			if (!ftpClient.changeWorkingDirectory(directorioRemoto)) {
+				if (ftpClient.makeDirectory(directorioRemoto)) {
+					ftpClient.changeWorkingDirectory(directorioRemoto);
+				}
+				else {
+					System.out.println("No se pudo crear el directorio remoto: " + directorioRemoto);
+					return;
+				}
+			}
+
+			if (ftpClient.storeFile(nombreFicheroRemoto, bufferedInputStream)) {
+				System.out.println("Fichero subido con exito: " + ficheroLocal + " -> " + rutaCompletaRemota);
+			}
+			else {
+				System.out.println("No se pudo subir el archivo: " + ficheroLocal);
+				System.out.println("Server reply: " + ftpClient.getReplyString());
+			}
+		}
+		catch (IOException e) {
+			System.out.println("Error al subir el archivo: " + e.getMessage());
+			throw new RuntimeException(e);
 		}
 	}
 
