@@ -85,7 +85,7 @@ public class DescargarFTP {
 	}
 	
 	// Para descargar SOLO ficheros en este ejemplo
-	private static void Descarga(FTPClient ftpClient)throws IOException {
+	private static void Descarga(FTPClient ftpClient) throws IOException {
 		BufferedOutputStream bufferedOutputStream;
 		FTPFile[] remoteFiles = ftpClient.listFiles();
 
